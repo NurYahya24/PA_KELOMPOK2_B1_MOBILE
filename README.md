@@ -1,6 +1,13 @@
 # daily_jurnal
 
-A new Flutter project.
+Projek Akhir Kelompok 2 B1-21
+
+### anggota kelompok :
+
+- Zahra Salsabila : 2109106063
+- Daviana Dwitasari : 2109106064
+- Nur Yahya : 2109106073
+- Dhea Puspitaningtyas : 2109106085
 
 ## Getting Started
 
