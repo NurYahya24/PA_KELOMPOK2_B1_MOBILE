@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "178617000944",
+    "project_id": "daily-journal-feeb9",
+    "storage_bucket": "daily-journal-feeb9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178617000944:android:de144b519506a6e735b335",
+        "android_client_info": {
+          "package_name": "com.example.daily_jurnal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnCSM4jylVsHec4Xfz6fUp22WqloEuys4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
