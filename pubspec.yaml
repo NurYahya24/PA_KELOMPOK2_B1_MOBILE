@@ -63,12 +63,19 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+<<<<<<< HEAD
     - assets/quote.png
     - assets/emoji.png
     - assets/affirmation.png
     - assets/motivation.png
     - assets/spread.png
     - assets/think.png
+=======
+    - affirmationMental/
+    - affirmationChakra/
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg
+>>>>>>> eddeb97f5541594d46ac3eebeb94ea6b49f0bc60
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
