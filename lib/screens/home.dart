@@ -100,6 +100,14 @@ class _Profile_pageState extends State<Profile_page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Profile & Settings',
+          style: TextStyle(
+              color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+      ),
       body: Center(
         child: Container(
           child: Text('Laman Profil'),
