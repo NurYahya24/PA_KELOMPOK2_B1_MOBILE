@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '178617000944',
     projectId: 'daily-journal-feeb9',
     authDomain: 'daily-journal-feeb9.firebaseapp.com',
+    databaseURL: 'https://daily-journal-feeb9-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'daily-journal-feeb9.appspot.com',
   );
 
@@ -57,6 +58,7 @@ class DefaultFirebaseOptions {
     appId: '1:178617000944:android:de144b519506a6e735b335',
     messagingSenderId: '178617000944',
     projectId: 'daily-journal-feeb9',
+    databaseURL: 'https://daily-journal-feeb9-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'daily-journal-feeb9.appspot.com',
   );
 
@@ -65,6 +67,7 @@ class DefaultFirebaseOptions {
     appId: '1:178617000944:ios:28dc7dd540650b4135b335',
     messagingSenderId: '178617000944',
     projectId: 'daily-journal-feeb9',
+    databaseURL: 'https://daily-journal-feeb9-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'daily-journal-feeb9.appspot.com',
     iosBundleId: 'com.example.dailyJurnal',
   );
@@ -74,6 +77,7 @@ class DefaultFirebaseOptions {
     appId: '1:178617000944:ios:16cab6ce4512b60435b335',
     messagingSenderId: '178617000944',
     projectId: 'daily-journal-feeb9',
+    databaseURL: 'https://daily-journal-feeb9-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'daily-journal-feeb9.appspot.com',
     iosBundleId: 'com.example.dailyJurnal.RunnerTests',
   );

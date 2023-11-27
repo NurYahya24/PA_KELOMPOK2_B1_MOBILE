@@ -4,6 +4,7 @@ import 'journal.dart';
 import 'affirmation.dart';
 import 'highlight.dart';
 import 'quotes.dart';
+import '../pustaka/globals.dart' as globals;
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -13,6 +14,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    globals.readData();
+    super.initState();
+  }
+
   int _index = 0;
   void _onItemTap(int index) {
     setState(

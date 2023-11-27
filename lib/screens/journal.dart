@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../pustaka/globals.dart' as globals;
 
 class JournalPage extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class _JournalPageState extends State<JournalPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Your Journals',
+                  globals.username + "'s Journals",
                   style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 25,
