@@ -7,6 +7,15 @@ import 'highlight.dart';
 import 'quotes.dart';
 import '../pustaka/globals.dart' as globals;
 
+List<String> _avatar =[
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6'
+];
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -107,7 +116,9 @@ class Profile_page extends StatefulWidget {
 class _Profile_pageState extends State<Profile_page> {
   bool isAnyTextFieldChange = false;
 
-  void _showIconPicker(BuildContext context) {}
+  void _showIconPicker(BuildContext context) {
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,46 +135,48 @@ class _Profile_pageState extends State<Profile_page> {
       body: Container(
         padding: EdgeInsets.all(20.0),
         child: Center(
-          child: Column(children: [
+          child: Column(children: <Widget>[
             SizedBox(
               height: 30,
             ),
-            // CircleAvatar(
-            //   backgroundColor: const Color.fromARGB(255, 255, 234, 234),
-            //   radius: 80,
-            // ),
+            CircleAvatar(
+              backgroundColor: Color.fromARGB(255, 255, 226, 226),
+              // backgroundImage: AssetImage(ima),
+              radius: 70,
+            ),
+            SizedBox(height: 15),
             Container(
-              child: Stack(
+              width: MediaQuery.of(context).size.width,
+              height: 80,
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 255, 226, 226),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: ListView(
+                scrollDirection: Axis.horizontal,
                 children: [
-                  Container(
-                    width: 150,
-                    height: 150,
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 255, 226, 226),
-                        border: Border.all(width: 2, color: Colors.white),
-                        boxShadow: [
-                          BoxShadow(
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              color: Colors.white)
+                  for(int i = 0; i < _avatar.length; i++)
+                  GestureDetector(
+                    onTap: () => {},
+                    child: Container(
+                      width: 80,
+                      margin: EdgeInsets.only(top: 5, left: 2),
+                      child: Column(
+                        children: [
+                          CircleAvatar(
+                            radius: 35,
+                            backgroundColor: Colors.white,
+                            child: CircleAvatar(
+                              backgroundImage: Image.asset('assets/'+ _avatar[i].toString()+'.png').image,
+                              radius: 32,
+                              
+                              
+                            ),
+                          )
                         ],
-                        shape: BoxShape.circle),
-                  ),
-                  Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(width: 2, color: Colors.grey),
-                            color: Colors.white),
-                        child: Icon(
-                          Icons.edit,
-                          color: Color.fromRGBO(224, 46, 129, 1),
-                        ),
-                      ))
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
@@ -184,10 +197,15 @@ class _Profile_pageState extends State<Profile_page> {
                   hintStyle: TextStyle(
                     color: Colors.black,
                   ),
+                  suffix: Icon(
+                    Icons.edit,
+                    color: Colors.grey,
+                    size: 15,
+                  ),
                 ),
               ),
             ),
-            SizedBox(height: 300),
+            SizedBox(height: 200),
             Container(
               width: 90,
               height: 30,
