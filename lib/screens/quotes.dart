@@ -13,6 +13,7 @@ class quotes_page extends StatelessWidget {
           child: Column(
             children: [
               Container(
+                width: MediaQuery.of(context).size.width,
                 alignment: Alignment.topLeft,
                 margin: EdgeInsets.only(top: 59, bottom: 10),
                 child: const Text(
@@ -27,7 +28,8 @@ class quotes_page extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.only(bottom: 50),
-                width: 460,
+                // width: 460,
+                width: MediaQuery.of(context).size.width,
                 height: 460,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
@@ -44,6 +46,7 @@ class quotes_page extends StatelessWidget {
                         fit: BoxFit.cover)),
               ),
               Container(
+                width: MediaQuery.of(context).size.width,
                 alignment: Alignment.topLeft,
                 margin: EdgeInsets.only(bottom: 10),
                 child: const Text(
@@ -55,10 +58,11 @@ class quotes_page extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-              ),
+              ),  
               Container(
                 margin: EdgeInsets.only(bottom: 50),
-                width: 460,
+                // width: 460,
+                width: MediaQuery.of(context).size.width,
                 height: 460,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
@@ -75,6 +79,7 @@ class quotes_page extends StatelessWidget {
                         fit: BoxFit.cover)),
               ),
               Container(
+                width: MediaQuery.of(context).size.width,
                 alignment: Alignment.topLeft,
                 margin: EdgeInsets.only(bottom: 10),
                 child: const Text(
@@ -89,7 +94,8 @@ class quotes_page extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.only(bottom: 50),
-                width: 460,
+                // width: 460,
+                width: MediaQuery.of(context).size.width,
                 height: 460,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
@@ -106,6 +112,7 @@ class quotes_page extends StatelessWidget {
                         fit: BoxFit.cover)),
               ),
               Container(
+                width: MediaQuery.of(context).size.width,
                 alignment: Alignment.topLeft,
                 margin: EdgeInsets.only(bottom: 10),
                 child: const Text(
@@ -120,7 +127,8 @@ class quotes_page extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.only(bottom: 50),
-                width: 460,
+                // width: 460,
+                width: MediaQuery.of(context).size.width,
                 height: 460,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
@@ -137,6 +145,7 @@ class quotes_page extends StatelessWidget {
                         fit: BoxFit.cover)),
               ),
               Container(
+                width: MediaQuery.of(context).size.width,
                 alignment: Alignment.topLeft,
                 margin: EdgeInsets.only(bottom: 10),
                 child: const Text(
@@ -151,7 +160,8 @@ class quotes_page extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.only(bottom: 50),
-                width: 460,
+                // width: 460,
+                width: MediaQuery.of(context).size.width,
                 height: 460,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
@@ -176,6 +186,7 @@ class quotes_page extends StatelessWidget {
                         fit: BoxFit.cover)),
               ),
               Container(
+                width: MediaQuery.of(context).size.width,
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(top: 15),
                 child: const Text(
@@ -189,6 +200,7 @@ class quotes_page extends StatelessWidget {
                 ),
               ),
               Container(
+                width: MediaQuery.of(context).size.width,
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(top: 8, bottom: 50),
                 child: const Text(
