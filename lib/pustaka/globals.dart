@@ -1,18 +1,38 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 
-String user = FirebaseAuth.instance.currentUser!.uid;
-String username = '', email = '';
-int avatar = 0;
-DatabaseReference databaseReference =
-    FirebaseDatabase.instance.ref().child('users');
-DatabaseReference userRef = databaseReference.child(user);
+class UserData {
+  final String userID;
+  final String username;
+  final int avatar;
+  final String email;
 
-void readData() async {
-  final getName = await userRef.child('username').once(DatabaseEventType.value);
-  final getMail = await userRef.child('email').once(DatabaseEventType.value);
-  final getAvatar = await userRef.child('avatar').once(DatabaseEventType.value);
-  username = getName.snapshot.value.toString();
-  email = getMail.snapshot.value.toString();
-  avatar = int.parse(getAvatar.snapshot.value.toString());
+  UserData(
+      {required this.userID,
+      required this.username,
+      required this.email,
+      required this.avatar});
+}
+
+Future<UserData> readData() async {
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  try {
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(firebaseAuth.currentUser!.uid)
+        .get();
+
+    final userID = firebaseAuth.currentUser!.uid;
+    final username = userData.data()!['username'];
+    final avatar = userData.data()!['avatar'];
+    final email = userData.data()!['email'];
+
+    return UserData(
+        userID: userID, username: username, email: email, avatar: avatar);
+  } catch (e) {
+    print('Error fetching user data: $e');
+    throw e;
+  }
 }

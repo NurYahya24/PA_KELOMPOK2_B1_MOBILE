@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, prefer_final_fields
 
-import 'Login.dart';
 import 'package:flutter/material.dart';
 import '../provider/Auth.dart';
 
@@ -93,8 +92,7 @@ class _RegisState extends State<Regis> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Login()));
+                    Navigator.of(context).pop();
                   },
                   child: Text("Sudah Punya Akun? Klik Disini Untuk Login"),
                 )

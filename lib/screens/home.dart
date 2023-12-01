@@ -1,20 +1,12 @@
-import 'package:daily_jurnal/screens/Login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'journal.dart';
 import 'affirmation.dart';
 import 'highlight.dart';
 import 'quotes.dart';
-import '../pustaka/globals.dart' as globals;
 
-List<String> _avatar =[
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6'
-];
+List<String> _avatar = ['1', '2', '3', '4', '5', '6'];
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -24,13 +16,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  @override
-  void initState() {
-    globals.readData();
-    super.initState();
-  }
-
   int _index = 0;
+  // static var id = FirebaseAuth.instance.currentUser!.uid;
   void _onItemTap(int index) {
     setState(
       () {
@@ -39,7 +26,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  static List<Widget> _pages = [
+  static final List<Widget> _pages = [
     JournalPage(),
     affirmation_page(),
     quotes_page(),
@@ -116,10 +103,6 @@ class Profile_page extends StatefulWidget {
 class _Profile_pageState extends State<Profile_page> {
   bool isAnyTextFieldChange = false;
 
-  void _showIconPicker(BuildContext context) {
-    
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,28 +138,29 @@ class _Profile_pageState extends State<Profile_page> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  for(int i = 0; i < _avatar.length; i++)
-                  GestureDetector(
-                    onTap: () => {},
-                    child: Container(
-                      width: 80,
-                      margin: EdgeInsets.only(top: 5, left: 2),
-                      child: Column(
-                        children: [
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundColor: Colors.white,
-                            child: CircleAvatar(
-                              backgroundImage: Image.asset('assets/'+ _avatar[i].toString()+'.png').image,
-                              radius: 32,
-                              
-                              
-                            ),
-                          )
-                        ],
+                  for (int i = 0; i < _avatar.length; i++)
+                    GestureDetector(
+                      onTap: () => {},
+                      child: Container(
+                        width: 80,
+                        margin: EdgeInsets.only(top: 5, left: 2),
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 35,
+                              backgroundColor: Colors.white,
+                              child: CircleAvatar(
+                                backgroundImage: Image.asset('assets/' +
+                                        _avatar[i].toString() +
+                                        '.png')
+                                    .image,
+                                radius: 32,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  )
+                    )
                 ],
               ),
             ),
@@ -205,7 +189,7 @@ class _Profile_pageState extends State<Profile_page> {
                 ),
               ),
             ),
-            SizedBox(height: 200),
+            SizedBox(height: 100),
             Container(
               width: 90,
               height: 30,
@@ -263,10 +247,8 @@ class _Profile_pageState extends State<Profile_page> {
                 child: Text("Cancel")),
             TextButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Login()),
-                );
+                Navigator.of(context).popUntil((route) => route.isFirst);
+                FirebaseAuth.instance.signOut();
               },
               child: Text("Yes"),
             ),
