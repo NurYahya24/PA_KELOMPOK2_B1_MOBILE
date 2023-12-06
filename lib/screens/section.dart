@@ -50,7 +50,6 @@ class _section_pageState extends State<section_page> {
     setState(() {
       _buttonColor = value.isEmpty ? Color(0xffDDDDDD) : Color(0xFFFF8787);
       _textColor = value.isEmpty ? Colors.black : Colors.white;
-      _textController.text = value;
     });
   }
 

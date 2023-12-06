@@ -51,6 +51,7 @@ class _RegisState extends State<Regis> {
                 SizedBox(height: 15),
                 TextFormField(
                   controller: _ctrlEmail,
+                  cursorColor: const Color.fromRGBO(224, 46, 129, 1),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Silakan Masukkan Email Anda';
@@ -58,13 +59,23 @@ class _RegisState extends State<Regis> {
                     return null;
                   },
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Colors
+                              .grey), // Atur warna border saat tidak aktif
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: const Color.fromRGBO(224, 46, 129, 1),
+                      ), // Atur warna border saat focused
+                    ),
                     hintText: 'Email',
                   ),
                 ),
                 SizedBox(height: 10),
                 TextFormField(
                   controller: _ctrlUsername,
+                  cursorColor: const Color.fromRGBO(224, 46, 129, 1),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Silakan Masukkan Username Anda';
@@ -72,13 +83,23 @@ class _RegisState extends State<Regis> {
                     return null;
                   },
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Colors
+                              .grey), // Atur warna border saat tidak aktif
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: const Color.fromRGBO(224, 46, 129, 1),
+                      ), // Atur warna border saat focused
+                    ),
                     hintText: 'Username',
                   ),
                 ),
                 SizedBox(height: 10),
                 TextFormField(
                   controller: _ctrlPassword,
+                  cursorColor: const Color.fromRGBO(224, 46, 129, 1),
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -87,7 +108,16 @@ class _RegisState extends State<Regis> {
                     return null;
                   },
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Colors
+                              .grey), // Atur warna border saat tidak aktif
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: const Color.fromRGBO(224, 46, 129, 1),
+                      ), // Atur warna border saat focused
+                    ),
                     hintText: 'Password',
                   ),
                 ),
@@ -129,13 +159,10 @@ class _RegisState extends State<Regis> {
                     Text('Already have account?'),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => Login()),
-                        );
+                        Navigator.of(context).pop();
                       },
                       child: Text(
-                        'Klik here',
+                        'Click here',
                         style: TextStyle(
                             color: const Color.fromRGBO(224, 46, 129, 1),
                             fontWeight: FontWeight.bold),
