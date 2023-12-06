@@ -205,56 +205,6 @@ class _Profile_pageState extends State<Profile_page> {
       body: ListView(
         padding: const EdgeInsets.all(10),
         children: [
-<<<<<<< Updated upstream
-          // COLUMN THAT WILL CONTAIN THE PROFILE
-          Column(
-            children: [
-              CircleAvatar(
-                radius: 50,
-                backgroundImage: NetworkImage(
-                  "https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=386&q=80",
-                ),
-              ),
-              SizedBox(height: 10),
-              Text(
-                "Nama",
-                style: GoogleFonts.quicksand(
-                  textStyle: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Text(
-                "Email",
-                style: GoogleFonts.quicksand(),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.yellow,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                  ),
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.edit,
-                    color: Colors.black,
-                  ),
-                  label: Text(
-                    'Edit Profile',
-                    style: GoogleFonts.quicksand(
-                      textStyle: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-=======
           StreamBuilder<QuerySnapshot>(
               stream: getUser(),
               builder: (context, snapshot) {
@@ -328,7 +278,6 @@ class _Profile_pageState extends State<Profile_page> {
                     }
                 }
               }),
->>>>>>> Stashed changes
           const SizedBox(height: 35),
           Padding(
             padding: const EdgeInsets.only(bottom: 5),
