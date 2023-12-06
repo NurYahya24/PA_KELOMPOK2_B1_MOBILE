@@ -2,6 +2,7 @@
 
 import 'package:daily_jurnal/screens/Login.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../provider/Auth.dart';
 
 class Regis extends StatefulWidget {
@@ -44,9 +45,11 @@ class _RegisState extends State<Regis> {
               children: [
                 Text(
                   "Register",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                  style: GoogleFonts.quicksand(
+                    textStyle: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 SizedBox(height: 15),
@@ -148,7 +151,9 @@ class _RegisState extends State<Regis> {
                         )
                       : Text(
                           "Submit",
-                          style: TextStyle(color: Colors.white),
+                          style: GoogleFonts.quicksand(
+                            textStyle: TextStyle(color: Colors.white),
+                          ),
                         ),
                 ),
                 SizedBox(
@@ -157,16 +162,21 @@ class _RegisState extends State<Regis> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Already have account?'),
+                    Text(
+                      'Already have account?',
+                      style: GoogleFonts.quicksand(),
+                    ),
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                       child: Text(
                         'Click here',
-                        style: TextStyle(
-                            color: const Color.fromRGBO(224, 46, 129, 1),
-                            fontWeight: FontWeight.bold),
+                        style: GoogleFonts.quicksand(
+                          textStyle: TextStyle(
+                              color: const Color.fromRGBO(224, 46, 129, 1),
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     )
                   ],

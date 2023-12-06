@@ -3,6 +3,7 @@
 import 'Regis.dart';
 import 'package:flutter/material.dart';
 import '../provider/Auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -42,9 +43,11 @@ class _LoginState extends State<Login> {
               children: [
                 Text(
                   "Login",
-                  style: TextStyle(
-                    fontSize: 27,
-                    fontWeight: FontWeight.bold,
+                  style: GoogleFonts.quicksand(
+                    textStyle: TextStyle(
+                      fontSize: 27,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 SizedBox(height: 15),
@@ -122,7 +125,9 @@ class _LoginState extends State<Login> {
                         )
                       : Text(
                           "Submit",
-                          style: TextStyle(color: Colors.white),
+                          style: GoogleFonts.quicksand(
+                            textStyle: TextStyle(color: Colors.white),
+                          ),
                         ),
                 ),
                 SizedBox(
@@ -154,9 +159,11 @@ class _LoginState extends State<Login> {
                       },
                       child: Text(
                         'Register Now',
-                        style: TextStyle(
+                        style: GoogleFonts.quicksand(
+                          textStyle: TextStyle(
                             color: const Color.fromRGBO(224, 46, 129, 1),
                             fontWeight: FontWeight.bold),
+                        ),
                       ),
                     )
                   ],
