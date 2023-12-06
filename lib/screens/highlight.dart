@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'section.dart';
 
 class highlight_page extends StatefulWidget {
@@ -14,12 +15,12 @@ class _highlight_pageState extends State<highlight_page> {
   FirebaseFirestore fs = FirebaseFirestore.instance;
 
   Stream<QuerySnapshot> getSection() {
-     var id = FirebaseAuth.instance.currentUser!.uid;
+    var id = FirebaseAuth.instance.currentUser!.uid;
     return FirebaseFirestore.instance
-    .collection('users')
-    .doc(id)
-    .collection('section')
-    .snapshots();
+        .collection('users')
+        .doc(id)
+        .collection('section')
+        .snapshots();
   }
 
   @override
@@ -31,9 +32,11 @@ class _highlight_pageState extends State<highlight_page> {
             margin: EdgeInsets.all(24),
             child: Text(
               "Your Highlights",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+              style: GoogleFonts.quicksand(
+                textStyle: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
@@ -53,14 +56,19 @@ class _highlight_pageState extends State<highlight_page> {
                       }
                     }
                     if (snapshot.hasError) {
-                      return Text('Terjadi Kesalahan Saat Membaca Data');
+                      return Text(
+                        'Terjadi Kesalahan Saat Membaca Data',
+                        style: GoogleFonts.quicksand(),
+                      );
                     } else {
                       return Container(
                         margin: EdgeInsets.all(24),
                         child: Text(
                           snapshot.data?.docs[index]['section_name'],
-                          style: TextStyle(
-                            fontSize: 20,
+                          style: GoogleFonts.quicksand(
+                            textStyle: TextStyle(
+                              fontSize: 20,
+                            ),
                           ),
                         ),
                       );
@@ -80,7 +88,10 @@ class _highlight_pageState extends State<highlight_page> {
             ),
           );
         },
-        label: const Text("New Section"),
+        label: Text(
+          "New Section",
+          style: GoogleFonts.quicksand(),
+        ),
         icon: const Icon(Icons.add),
         backgroundColor: const Color.fromRGBO(224, 46, 129, 1),
         foregroundColor: Colors.white,

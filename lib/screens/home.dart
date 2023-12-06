@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'journal.dart';
 import 'affirmation.dart';
 import 'highlight.dart';
 import 'quotes.dart';
+
+int profile_index = 0;
 
 List<String> _avatar = ['1', '2', '3', '4', '5', '6', '7'];
 bool _isSwitched = false;
@@ -18,7 +22,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _index = 0;
-  // static var id = FirebaseAuth.instance.currentUser!.uid;
   void _onItemTap(int index) {
     setState(
       () {
@@ -38,6 +41,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 255, 226, 226),
         leading: GestureDetector(
           onTap: () {
             Navigator.push(
@@ -50,10 +54,14 @@ class _HomeState extends State<Home> {
             );
           },
           child: Padding(
-            padding: EdgeInsets.only(top: 15, left: 25),
+            padding: EdgeInsets.only(left: 25),
             child: CircleAvatar(
               radius: 60,
-              child: Icon(Icons.person),
+              backgroundColor: const Color.fromRGBO(224, 46, 129, 1),
+              child: Icon(
+                Icons.person,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
@@ -103,6 +111,88 @@ class _Profile_pageState extends State<Profile_page> {
 
   void _changeAvatar(BuildContext) {}
 
+  var idUser = FirebaseAuth.instance.currentUser!.uid;
+
+  Stream<QuerySnapshot> getUser() {
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    return db.collection('users').snapshots();
+  }
+
+  void editProfile(String username, int avatar) {
+    final data = {
+      "avatar": avatar,
+      "username": username,
+    };
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    db.collection('users').doc(idUser).update(data);
+  }
+
+  renderContainer(Widget child) {
+    return SizedBox(height: 90, width: 90, child: Center(child: child));
+  }
+
+  void showDialogWithFields(BuildContext context, username) {
+    showDialog(
+      context: context,
+      builder: (BuildContext builder) {
+        var nameController = TextEditingController();
+        nameController.text = username;
+        return AlertDialog(
+          title: Text('Edit Profile'),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(20.0),
+                  child: Center(
+                    child: Column(children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 80,
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 255, 226, 226),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: _avatar.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return renderContainer(SelectableAvatar(
+                                url: 'assets/' + _avatar[index] + '.png',
+                                index_avatar: index,
+                              ));
+                            }),
+                      ),
+                    ]),
+                  ),
+                ),
+                TextFormField(
+                  controller: nameController,
+                  decoration: InputDecoration(hintText: 'Write your Username'),
+                  maxLines: null,
+                  maxLength: 20,
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                editProfile(nameController.text, profile_index);
+                Navigator.pop(context);
+              },
+              child: Text('Save'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,55 +201,88 @@ class _Profile_pageState extends State<Profile_page> {
         // centerTitle: true,
         title: Text(
           'Profile & Settings',
-          style: TextStyle(
-              color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+          style: GoogleFonts.quicksand(
+            textStyle: TextStyle(
+                color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
-
       body: ListView(
         padding: const EdgeInsets.all(10),
         children: [
-          // COLUMN THAT WILL CONTAIN THE PROFILE
-          Column(
-            children: [
-              CircleAvatar(
-                radius: 50,
-                backgroundImage: NetworkImage(
-                  "https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=386&q=80",
-                ),
-              ),
-              SizedBox(height: 10),
-              Text(
-                "Nama",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text("Email"),
-              Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.yellow,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                  ),
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.edit,
-                    color: Colors.black,
-                  ),
-                  label: const Text(
-                    'Edit Profile',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
-              )
-            ],
-          ),
+          StreamBuilder<QuerySnapshot>(
+              stream: getUser(),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return Center(child: CircularProgressIndicator());
+                  default:
+                    if (snapshot.hasError) {
+                      return Text('Errror saat membaca data');
+                    } else {
+                      if (snapshot.hasData) {
+                        int index = 0;
+                        int panjang = snapshot.data!.docs.length;
+                        for (int i = 0; i < panjang; i++) {
+                          if (snapshot.data!.docs[i].id == idUser) {
+                            index = i;
+                          }
+                        }
+                        return Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 52,
+                              backgroundColor: Colors.pink,
+                              child: CircleAvatar(
+                                radius: 50,
+                                backgroundImage: Image.asset("assets/" +
+                                        _avatar[snapshot.data?.docs[index]
+                                            ['avatar']] +
+                                        ".png")
+                                    .image,
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              snapshot.data?.docs[index]['username'],
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(snapshot.data?.docs[index]['email']),
+                            Padding(
+                              padding: EdgeInsets.only(top: 20),
+                              child: ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.yellow,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  showDialogWithFields(context,
+                                      snapshot.data?.docs[index]['username']);
+                                },
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Colors.black,
+                                ),
+                                label: const Text(
+                                  'Edit Profile',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            )
+                          ],
+                        );
+                      } else {
+                        return Text('Data kosong');
+                      }
+                    }
+                }
+              }),
           const SizedBox(height: 35),
           Padding(
             padding: const EdgeInsets.only(bottom: 5),
@@ -168,7 +291,10 @@ class _Profile_pageState extends State<Profile_page> {
               shadowColor: Colors.black12,
               child: ListTile(
                 leading: Icon(Icons.light_mode),
-                title: Text('Dark Mode'),
+                title: Text(
+                  'Dark Mode',
+                  style: GoogleFonts.quicksand(),
+                ),
                 trailing: Switch(
                   value: _isSwitched,
                   onChanged: (value) {
@@ -192,144 +318,23 @@ class _Profile_pageState extends State<Profile_page> {
               shadowColor: Colors.black12,
               child: ListTile(
                 leading: Icon(Icons.logout),
-                title: Text('Log Out'),
+                title: Text(
+                  'Log Out',
+                  style: GoogleFonts.quicksand(),
+                ),
                 trailing: const Icon(Icons.chevron_right),
-                onTap: () {},
+                onTap: () {
+                  showAlertDialog(
+                    context,
+                    "LOGOUT",
+                    "Are you sure want to logout this account?",
+                  );
+                },
               ),
             ),
           ),
         ],
       ),
-
-      // body: Container(
-      //   padding: EdgeInsets.all(20.0),
-      //   child: Center(
-      //     child: Column(children: <Widget>[
-      //       SizedBox(
-      //         height: 30,
-      //       ),
-      //       CircleAvatar(
-      //         backgroundColor: Color.fromARGB(255, 255, 226, 226),
-      //         // backgroundImage: AssetImage(ima),
-      //         radius: 70,
-      //       ),
-      //       SizedBox(height: 15),
-      //       Container(
-      //         width: MediaQuery.of(context).size.width,
-      //         height: 80,
-      //         decoration: BoxDecoration(
-      //           color: Color.fromARGB(255, 255, 226, 226),
-      //           borderRadius: BorderRadius.circular(15),
-      //         ),
-      //         // child: ListView(
-      //         //   scrollDirection: Axis.horizontal,
-      //         //   children: [
-      //         //     for (int i = 0; i < _avatar.length; i++)
-      //         //       GestureDetector(
-      //         //         onTap: () => {} ,
-      //         //         child: Container(
-      //         //           width: 80,
-      //         //           margin: EdgeInsets.only(top: 5, left: 2),
-      //         //           child: Column(
-      //         //             children: [
-      //         //               CircleAvatar(
-      //         //                 radius: 35,
-      //         //                 backgroundColor: Colors.white,
-      //         //                 child: CircleAvatar(
-      //         //                   backgroundImage: Image.asset('assets/' +
-      //         //                           _avatar[i].toString() +
-      //         //                           '.png')
-      //         //                       .image,
-      //         //                   radius: 32,
-      //         //                 ),
-      //         //               )
-      //         //             ],
-      //         //           ),
-      //         //         ),
-      //         //       )
-      //         //   ],
-      //         // ),
-      //         child: ListView(
-      //           scrollDirection: Axis.horizontal,
-      //           children: [
-      //             for (int i = 0; i < _avatar.length; i++)
-      //               GestureDetector(
-      //                 onTap: () => {},
-      //                 child: Container(
-      //                   width: 80,
-      //                   margin: EdgeInsets.only(top: 5, left: 2),
-      //                   child: Column(
-      //                     children: [
-      //                       CircleAvatar(
-      //                         radius: 35,
-      //                         backgroundColor: Colors.white,
-      //                         child: CircleAvatar(
-      //                           backgroundImage: Image.asset('assets/' +
-      //                                   _avatar[i].toString() +
-      //                                   '.png')
-      //                               .image,
-      //                           radius: 32,
-      //                         ),
-      //                       )
-      //                     ],
-      //                   ),
-      //                 ),
-      //               )
-      //           ],
-      //         ),
-      //       ),
-      //       SizedBox(
-      //         height: 30,
-      //       ),
-      //       Container(
-      //         padding: EdgeInsets.all(10.0),
-      //         height: 40,
-      //         width: 300,
-      //         decoration: BoxDecoration(
-      //             color: const Color.fromARGB(255, 255, 234, 234),
-      //             borderRadius: BorderRadius.circular(10),
-      //             border: Border.all(color: Colors.grey, width: 2)),
-      //         child: TextField(
-      //           decoration: InputDecoration(
-      //             // hintText: nama,
-      //             hintStyle: TextStyle(
-      //               color: Colors.black,
-      //             ),
-      //             suffix: Icon(
-      //               Icons.edit,
-      //               color: Colors.grey,
-      //               size: 15,
-      //             ),
-      //           ),
-      //         ),
-      //       ),
-      //       SizedBox(height: 100),
-      //     ]),
-      //   ),
-      // ),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: () {
-      //     showAlertDialog(
-      //       context,
-      //       "LOGOUT",
-      //       "Are you sure want to logout this account?",
-      //     );
-      //   },
-      //   backgroundColor: Color.fromRGBO(224, 46, 129, 1),
-      //   label: Text(
-      //     'Logout',
-      //     style: TextStyle(
-      //       fontSize: 16,
-      //       color: Colors.white,
-      //       fontWeight: FontWeight.w500,
-      //     ),
-      //   ),
-      //   icon: Icon(
-      //     Icons.logout_outlined,
-      //     color: Colors.white,
-      //     size: 20,
-      //   ),
-      // ),
     );
   }
 
@@ -346,13 +351,19 @@ class _Profile_pageState extends State<Profile_page> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text("Cancel")),
+                child: Text(
+                  "Cancel",
+                  style: GoogleFonts.quicksand(),
+                )),
             TextButton(
               onPressed: () {
                 Navigator.of(context).popUntil((route) => route.isFirst);
                 FirebaseAuth.instance.signOut();
               },
-              child: Text("Yes"),
+              child: Text(
+                "Yes",
+                style: GoogleFonts.quicksand(),
+              ),
             ),
           ],
         );
@@ -361,30 +372,65 @@ class _Profile_pageState extends State<Profile_page> {
   }
 }
 
-class CustomListTile {
-  final IconData icon;
-  final String title;
-  CustomListTile({
-    required this.icon,
-    required this.title,
-  });
+class SelectableAvatar extends StatefulWidget {
+  const SelectableAvatar({Key? key, this.url, this.index_avatar})
+      : super(key: key);
+  final String? url;
+  final int? index_avatar;
+
+  @override
+  State<SelectableAvatar> createState() => _SelectableAvatarState();
 }
 
-List<CustomListTile> customListTiles = [
-  CustomListTile(
-    icon: Icons.insights,
-    title: "Activity",
-  ),
-  CustomListTile(
-    icon: Icons.location_on_outlined,
-    title: "Location",
-  ),
-  CustomListTile(
-    title: "Notifications",
-    icon: CupertinoIcons.bell,
-  ),
-  CustomListTile(
-    title: "Logout",
-    icon: CupertinoIcons.arrow_right_arrow_left,
-  ),
-];
+class _SelectableAvatarState extends State<SelectableAvatar> {
+  @override
+  Widget build(BuildContext context) {
+    return FocusScope(
+      child: Focus(
+        child: Builder(builder: (context) {
+          final FocusNode focusNode = Focus.of(context);
+          final bool hasFocus = focusNode.hasFocus;
+          return GestureDetector(
+            onTap: () {
+              focusNode.requestFocus();
+              setState(() {
+                profile_index = int.parse(widget.index_avatar.toString());
+              });
+              print(profile_index);
+            },
+            child: _renderAvatar(hasFocus),
+          );
+        }),
+      ),
+    );
+  }
+
+  Widget _renderAvatar(bool hasFocus) {
+    final uri = widget.url != null ? Uri.tryParse(widget.url!) : null;
+    final useDefault = uri == null;
+
+    ImageProvider getProvider() {
+      if (useDefault) {
+        return const AssetImage('');
+      }
+      return AssetImage(widget.url!);
+    }
+
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 100),
+      width: hasFocus ? 120 : 100,
+      height: hasFocus ? 120 : 100,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(
+          width: hasFocus ? 5 : 3,
+          color: hasFocus ? Colors.blue : Colors.grey,
+        ),
+      ),
+      child: CircleAvatar(
+        foregroundColor: Colors.white,
+        backgroundImage: getProvider(),
+      ),
+    );
+  }
+}

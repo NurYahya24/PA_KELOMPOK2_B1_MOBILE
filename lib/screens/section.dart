@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class section_page extends StatefulWidget {
   final action, id;
@@ -29,8 +30,9 @@ class _section_pageState extends State<section_page> {
     final dataSection = {
       "nama_section": namaSection,
     };
-    db.collection('users').doc(id).collection('section').add(dataSection).then((DocumentSnapshot) => print(
-        "Berhasil Menambahkan Data Section Dengan ID : ${DocumentSnapshot.id}"));
+    db.collection('users').doc(id).collection('section').add(dataSection).then(
+        (DocumentSnapshot) => print(
+            "Berhasil Menambahkan Data Section Dengan ID : ${DocumentSnapshot.id}"));
   }
 
   @override
@@ -66,9 +68,11 @@ class _section_pageState extends State<section_page> {
             margin: EdgeInsets.only(left: 24, right: 24, bottom: 14),
             child: Text(
               "Cool, now let's add a section.",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
+              style: GoogleFonts.quicksand(
+                textStyle: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                ),
               ),
             ),
           ),
@@ -76,10 +80,12 @@ class _section_pageState extends State<section_page> {
             margin: EdgeInsets.only(left: 24, right: 24, bottom: 14),
             child: Text(
               "What are sections?",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                color: Color(0xFFFF8787),
+              style: GoogleFonts.quicksand(
+                textStyle: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Color(0xFFFF8787),
+                ),
               ),
             ),
           ),
@@ -112,7 +118,7 @@ class _section_pageState extends State<section_page> {
             child: TextButton(
               onPressed: _buttonColor == Color(0xFFFF8787)
                   ? () {
-                      if(widget.action == "add"){
+                      if (widget.action == "add") {
                         addSection(_textController.text);
                       }
                       Navigator.of(context).pop();
@@ -122,8 +128,10 @@ class _section_pageState extends State<section_page> {
                 padding: const EdgeInsets.all(15),
                 child: Text(
                   "Continue",
-                  style: TextStyle(
-                    color: _textColor,
+                  style: GoogleFonts.quicksand(
+                    textStyle: TextStyle(
+                      color: _textColor,
+                    ),
                   ),
                 ),
               ),

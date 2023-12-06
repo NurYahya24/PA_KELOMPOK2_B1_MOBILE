@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class mentalHealth {
   String judul, foto;
@@ -44,10 +45,12 @@ class affirmation_page extends StatelessWidget {
               padding: EdgeInsets.only(left: 20, right: 16),
               child: Text(
                 'Better Mental Health',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
+                style: GoogleFonts.quicksand(
+                  textStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
               )),
           const SizedBox(
             height: 20,
@@ -85,7 +88,9 @@ class affirmation_page extends StatelessWidget {
                               ),
                               Text(
                                 'Affirmations',
-                                style: TextStyle(color: Colors.black),
+                                style: GoogleFonts.quicksand(
+                                  textStyle: TextStyle(color: Colors.black),
+                                ),
                               )
                             ],
                           ),
@@ -100,10 +105,12 @@ class affirmation_page extends StatelessWidget {
               padding: EdgeInsets.only(left: 20, right: 16),
               child: Text(
                 'Balance Your Chakra',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
+                style: GoogleFonts.quicksand(
+                  textStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
               )),
           const SizedBox(
             height: 20,
@@ -129,7 +136,9 @@ class affirmation_page extends StatelessWidget {
                         ),
                         Text(
                           _chakraBoost[index].judul.toString(),
-                          style: TextStyle(color: Colors.black),
+                          style: GoogleFonts.quicksand(
+                            textStyle: TextStyle(color: Colors.black),
+                          ),
                         ),
                         Center(
                           child: Row(
@@ -137,11 +146,15 @@ class affirmation_page extends StatelessWidget {
                             children: [
                               Text(
                                 '0',
-                                style: TextStyle(color: Colors.black),
+                                style: GoogleFonts.quicksand(
+                                  textStyle: TextStyle(color: Colors.black),
+                                ),
                               ),
                               Text(
                                 'Affirmations',
-                                style: TextStyle(color: Colors.black),
+                                style: GoogleFonts.quicksand(
+                                  textStyle: TextStyle(color: Colors.black),
+                                ),
                               )
                             ],
                           ),
