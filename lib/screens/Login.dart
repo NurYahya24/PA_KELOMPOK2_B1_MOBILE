@@ -39,18 +39,41 @@ class _LoginState extends State<Login> {
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "Login",
-                  style: GoogleFonts.quicksand(
-                    textStyle: TextStyle(
-                      fontSize: 27,
-                      fontWeight: FontWeight.bold,
+                SizedBox(height: 15),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Welcome..",
+                    style: GoogleFonts.quicksand(
+                      textStyle: TextStyle(
+                        color: const Color.fromRGBO(224, 46, 129, 1),
+                        fontSize: 27,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
-                SizedBox(height: 15),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Log in now to continue",
+                    style: GoogleFonts.quicksand(
+                      textStyle: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 60),
+                CircleAvatar(
+                  radius: 110,
+                  backgroundColor: Colors.white,
+                  backgroundImage: AssetImage('assets/Gratitude.png'),
+                ),
+                SizedBox(height: 50),
                 TextFormField(
                   controller: _ctrlEmail,
                   cursorColor: const Color.fromRGBO(224, 46, 129, 1),
@@ -133,19 +156,6 @@ class _LoginState extends State<Login> {
                 SizedBox(
                   height: 10,
                 ),
-                // TextButton(
-                //   onPressed: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //         builder: (context) {
-                //           return const Regis();
-                //         },
-                //       ),
-                //     );
-                //   },
-                //   child: Text("Belum Punya Akun? Klik Disini Untuk Register"),
-                // )
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -161,8 +171,8 @@ class _LoginState extends State<Login> {
                         'Register Now',
                         style: GoogleFonts.quicksand(
                           textStyle: TextStyle(
-                            color: const Color.fromRGBO(224, 46, 129, 1),
-                            fontWeight: FontWeight.bold),
+                              color: const Color.fromRGBO(224, 46, 129, 1),
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     )
