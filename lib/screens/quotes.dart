@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class quotes_page extends StatelessWidget {
   const quotes_page({super.key});
@@ -16,13 +17,15 @@ class quotes_page extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 alignment: Alignment.topLeft,
                 margin: EdgeInsets.only(top: 59, bottom: 10),
-                child: const Text(
+                child: Text(
                   "Quote of The Day",
                   textAlign: TextAlign.justify,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
-                    color: Colors.black,
+                  style: GoogleFonts.quicksand(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ),
@@ -49,16 +52,18 @@ class quotes_page extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 alignment: Alignment.topLeft,
                 margin: EdgeInsets.only(bottom: 10),
-                child: const Text(
+                child: Text(
                   "Spread Gratitude",
                   textAlign: TextAlign.justify,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
-                    color: Colors.black,
+                  style: GoogleFonts.quicksand(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
-              ),  
+              ),
               Container(
                 margin: EdgeInsets.only(bottom: 50),
                 // width: 460,
@@ -82,13 +87,15 @@ class quotes_page extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 alignment: Alignment.topLeft,
                 margin: EdgeInsets.only(bottom: 10),
-                child: const Text(
+                child: Text(
                   "Dose of Motivation",
                   textAlign: TextAlign.justify,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
-                    color: Colors.black,
+                  style: GoogleFonts.quicksand(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ),
@@ -115,13 +122,15 @@ class quotes_page extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 alignment: Alignment.topLeft,
                 margin: EdgeInsets.only(bottom: 10),
-                child: const Text(
+                child: Text(
                   "Think Better",
                   textAlign: TextAlign.justify,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
-                    color: Colors.black,
+                  style: GoogleFonts.quicksand(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ),
@@ -148,13 +157,15 @@ class quotes_page extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 alignment: Alignment.topLeft,
                 margin: EdgeInsets.only(bottom: 10),
-                child: const Text(
+                child: Text(
                   "Affirmation for You",
                   textAlign: TextAlign.justify,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
-                    color: Colors.black,
+                  style: GoogleFonts.quicksand(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ),
@@ -189,13 +200,15 @@ class quotes_page extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(top: 15),
-                child: const Text(
+                child: Text(
                   "Thank you for using Gratitude today",
                   textAlign: TextAlign.justify,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                    color: Color.fromARGB(255, 170, 170, 170),
+                  style: GoogleFonts.quicksand(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: Color.fromARGB(255, 170, 170, 170),
+                    ),
                   ),
                 ),
               ),
@@ -203,13 +216,15 @@ class quotes_page extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(top: 8, bottom: 50),
-                child: const Text(
+                child: Text(
                   "See you tomorrow :)",
                   textAlign: TextAlign.justify,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                    color: Color.fromARGB(255, 170, 170, 170),
+                  style: GoogleFonts.quicksand(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: Color.fromARGB(255, 170, 170, 170),
+                    ),
                   ),
                 ),
               ),
