@@ -168,7 +168,15 @@ class _Profile_pageState extends State<Profile_page> {
                 ),
                 TextFormField(
                   controller: nameController,
-                  decoration: InputDecoration(hintText: 'Write your Username'),
+                  cursorColor: Color.fromRGBO(224, 46, 129, 1),
+                  decoration: InputDecoration(
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color.fromRGBO(224, 46, 129, 1),
+                          width: 2.0,
+                        ),
+                      ),
+                      hintText: 'Write your Username'),
                   maxLines: null,
                   maxLength: 20,
                 ),
@@ -178,14 +186,24 @@ class _Profile_pageState extends State<Profile_page> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('Cancel'),
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                  color: Color.fromRGBO(224, 46, 129, 1),
+                ),
+              ),
             ),
             TextButton(
               onPressed: () {
                 editProfile(nameController.text, profile_index);
                 Navigator.pop(context);
               },
-              child: Text('Save'),
+              child: Text(
+                'Save',
+                style: TextStyle(
+                  color: Color.fromRGBO(224, 46, 129, 1),
+                ),
+              ),
             ),
           ],
         );
@@ -255,7 +273,8 @@ class _Profile_pageState extends State<Profile_page> {
                               padding: EdgeInsets.only(top: 20),
                               child: ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.yellow,
+                                  backgroundColor:
+                                      Color.fromRGBO(224, 46, 129, 1),
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20.0),
@@ -267,11 +286,12 @@ class _Profile_pageState extends State<Profile_page> {
                                 },
                                 icon: const Icon(
                                   Icons.edit,
-                                  color: Colors.black,
+                                  color: Colors.white,
+                                  size: 18,
                                 ),
                                 label: const Text(
                                   'Edit Profile',
-                                  style: TextStyle(color: Colors.black),
+                                  style: TextStyle(color: Colors.white),
                                 ),
                               ),
                             )
@@ -387,20 +407,22 @@ class _SelectableAvatarState extends State<SelectableAvatar> {
   Widget build(BuildContext context) {
     return FocusScope(
       child: Focus(
-        child: Builder(builder: (context) {
-          final FocusNode focusNode = Focus.of(context);
-          final bool hasFocus = focusNode.hasFocus;
-          return GestureDetector(
-            onTap: () {
-              focusNode.requestFocus();
-              setState(() {
-                profile_index = int.parse(widget.index_avatar.toString());
-              });
-              print(profile_index);
-            },
-            child: _renderAvatar(hasFocus),
-          );
-        }),
+        child: Builder(
+          builder: (context) {
+            final FocusNode focusNode = Focus.of(context);
+            final bool hasFocus = focusNode.hasFocus;
+            return GestureDetector(
+              onTap: () {
+                focusNode.requestFocus();
+                setState(() {
+                  profile_index = int.parse(widget.index_avatar.toString());
+                });
+                print(profile_index);
+              },
+              child: _renderAvatar(hasFocus),
+            );
+          },
+        ),
       ),
     );
   }
@@ -423,8 +445,8 @@ class _SelectableAvatarState extends State<SelectableAvatar> {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
-          width: hasFocus ? 5 : 3,
-          color: hasFocus ? Colors.blue : Colors.grey,
+          width: hasFocus ? 3 : 2,
+          color: hasFocus ? Color.fromRGBO(224, 46, 129, 1) : Colors.grey,
         ),
       ),
       child: CircleAvatar(
