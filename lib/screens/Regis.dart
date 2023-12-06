@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, prefer_final_fields
 
+import 'package:daily_jurnal/screens/Login.dart';
 import 'package:flutter/material.dart';
 import '../provider/Auth.dart';
 
@@ -16,6 +17,8 @@ class _RegisState extends State<Regis> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _ctrlEmail = TextEditingController();
+
+  final TextEditingController _ctrlUsername = TextEditingController();
 
   final TextEditingController _ctrlPassword = TextEditingController();
   handleSubmit() async {
@@ -45,6 +48,7 @@ class _RegisState extends State<Regis> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                SizedBox(height: 15),
                 TextFormField(
                   controller: _ctrlEmail,
                   validator: (value) {
@@ -56,6 +60,20 @@ class _RegisState extends State<Regis> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: 'Email',
+                  ),
+                ),
+                SizedBox(height: 10),
+                TextFormField(
+                  controller: _ctrlUsername,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Silakan Masukkan Username Anda';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Username',
                   ),
                 ),
                 SizedBox(height: 10),
@@ -76,25 +94,54 @@ class _RegisState extends State<Regis> {
                 SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () => handleSubmit(),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromRGBO(224, 46, 129, 1),
+                    minimumSize:
+                        const Size(400, 50), // Atur lebar dan tinggi button
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 16), // Padding di sekitar icon dan teks
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          8.0), // Mengatur radius untuk membuat button rounded
+                    ),
+                  ),
                   child: _loading
                       ? const SizedBox(
-                          width: 20,
+                          width: 100,
                           height: 20,
                           child: CircularProgressIndicator(
                             color: Colors.white,
                             strokeWidth: 2,
                           ),
                         )
-                      : Text("Submit"),
+                      : Text(
+                          "Submit",
+                          style: TextStyle(color: Colors.white),
+                        ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text("Sudah Punya Akun? Klik Disini Untuk Login"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Already have account?'),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => Login()),
+                        );
+                      },
+                      child: Text(
+                        'Klik here',
+                        style: TextStyle(
+                            color: const Color.fromRGBO(224, 46, 129, 1),
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ],
                 )
               ],
             ),

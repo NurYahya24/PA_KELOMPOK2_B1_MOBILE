@@ -43,10 +43,11 @@ class _LoginState extends State<Login> {
                 Text(
                   "Login",
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 27,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                SizedBox(height: 15),
                 TextFormField(
                   controller: _ctrlEmail,
                   validator: (value) {
@@ -78,32 +79,67 @@ class _LoginState extends State<Login> {
                 SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () => handleSubmit(),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromRGBO(224, 46, 129, 1),
+                    minimumSize:
+                        const Size(400, 50), // Atur lebar dan tinggi button
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 16), // Padding di sekitar icon dan teks
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          8.0), // Mengatur radius untuk membuat button rounded
+                    ),
+                  ),
                   child: _loading
                       ? const SizedBox(
-                          width: 20,
+                          width: 100,
                           height: 20,
                           child: CircularProgressIndicator(
                             color: Colors.white,
                             strokeWidth: 2,
                           ),
                         )
-                      : Text("Submit"),
+                      : Text(
+                          "Submit",
+                          style: TextStyle(color: Colors.white),
+                        ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const Regis();
-                        },
+                // TextButton(
+                //   onPressed: () {
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //         builder: (context) {
+                //           return const Regis();
+                //         },
+                //       ),
+                //     );
+                //   },
+                //   child: Text("Belum Punya Akun? Klik Disini Untuk Register"),
+                // )
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('You dont have account?'),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => Regis()),
+                        );
+                      },
+                      child: Text(
+                        'Register Now',
+                        style: TextStyle(
+                            color: const Color.fromRGBO(224, 46, 129, 1),
+                            fontWeight: FontWeight.bold),
                       ),
-                    );
-                  },
-                  child: Text("Belum Punya Akun? Klik Disini Untuk Register"),
+                    )
+                  ],
                 )
               ],
             ),

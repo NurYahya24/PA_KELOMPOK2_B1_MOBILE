@@ -249,13 +249,12 @@ class CreateJournalPage extends StatefulWidget {
 
 class _CreateJournalPageState extends State<CreateJournalPage> {
   FirebaseFirestore fs = FirebaseFirestore.instance;
-  Color selectedColor = Colors.white;
+  Color selectedColor = Color.fromRGBO(250, 171, 208, 1);
   bool isAnyTextFieldFilled = false;
   final _judul = TextEditingController();
   final _konten = TextEditingController();
 
   List<Color> colors = [
-    Colors.white,
     Color.fromRGBO(250, 171, 208, 1),
     Color.fromRGBO(144, 203, 251, 1),
     Color.fromRGBO(166, 255, 169, 1),

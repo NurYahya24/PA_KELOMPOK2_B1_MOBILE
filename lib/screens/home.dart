@@ -6,7 +6,8 @@ import 'affirmation.dart';
 import 'highlight.dart';
 import 'quotes.dart';
 
-List<String> _avatar = ['1', '2', '3', '4', '5', '6'];
+List<String> _avatar = ['1', '2', '3', '4', '5', '6', '7'];
+bool _isSwitched = false;
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -62,9 +63,6 @@ class _HomeState extends State<Home> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        // backgroundColor: Color.fromARGB(255, 253, 233, 235),
-        // unselectedItemColor: Color.fromARGB(255, 221, 218, 219),
-        // selectedItemColor: const Color.fromARGB(255, 229, 69, 107),
         backgroundColor: Color.fromARGB(255, 255, 226, 226),
         unselectedItemColor: Color.fromARGB(255, 170, 170, 170),
         selectedItemColor: const Color.fromRGBO(224, 46, 129, 1),
@@ -103,17 +101,38 @@ class Profile_page extends StatefulWidget {
 class _Profile_pageState extends State<Profile_page> {
   bool isAnyTextFieldChange = false;
 
+  void _changeAvatar(BuildContext) {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 255, 226, 226),
-        centerTitle: true,
+        // centerTitle: true,
         title: Text(
           'Profile & Settings',
           style: TextStyle(
               color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
         ),
+        actions: [
+          Container(
+            width: 30,
+            height: 30,
+            child: Icon(Icons.dark_mode, color: Colors.black, size: 28),
+          ),
+          Switch(
+            value: _isSwitched,
+            onChanged: (value) {
+              setState(() {
+                _isSwitched = value;
+              });
+            },
+            activeColor: Colors.white,
+            activeTrackColor: Color.fromRGBO(224, 46, 129, 1),
+            inactiveThumbColor: Colors.white,
+            inactiveTrackColor: Colors.grey,
+          ),
+        ],
       ),
       body: Container(
         padding: EdgeInsets.all(20.0),
@@ -135,6 +154,34 @@ class _Profile_pageState extends State<Profile_page> {
                 color: Color.fromARGB(255, 255, 226, 226),
                 borderRadius: BorderRadius.circular(15),
               ),
+              // child: ListView(
+              //   scrollDirection: Axis.horizontal,
+              //   children: [
+              //     for (int i = 0; i < _avatar.length; i++)
+              //       GestureDetector(
+              //         onTap: () => {} ,
+              //         child: Container(
+              //           width: 80,
+              //           margin: EdgeInsets.only(top: 5, left: 2),
+              //           child: Column(
+              //             children: [
+              //               CircleAvatar(
+              //                 radius: 35,
+              //                 backgroundColor: Colors.white,
+              //                 child: CircleAvatar(
+              //                   backgroundImage: Image.asset('assets/' +
+              //                           _avatar[i].toString() +
+              //                           '.png')
+              //                       .image,
+              //                   radius: 32,
+              //                 ),
+              //               )
+              //             ],
+              //           ),
+              //         ),
+              //       )
+              //   ],
+              // ),
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
@@ -190,42 +237,30 @@ class _Profile_pageState extends State<Profile_page> {
               ),
             ),
             SizedBox(height: 100),
-            Container(
-              width: 90,
-              height: 30,
-              child: ElevatedButton(
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.logout_outlined,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                    SizedBox(width: 8),
-                    Text(
-                      'Logout',
-                      style: TextStyle(color: Colors.white, fontSize: 12),
-                    )
-                  ],
-                ),
-                onPressed: () {
-                  showAlertDialog(
-                    context,
-                    "LOGOUT",
-                    "Are you sure want to logout this account?",
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  backgroundColor: Color.fromRGBO(224, 46, 129, 1),
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
-              ),
-            )
           ]),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          showAlertDialog(
+            context,
+            "LOGOUT",
+            "Are you sure want to logout this account?",
+          );
+        },
+        backgroundColor: Color.fromRGBO(224, 46, 129, 1),
+        label: Text(
+          'Logout',
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        icon: Icon(
+          Icons.logout_outlined,
+          color: Colors.white,
+          size: 20,
         ),
       ),
     );
