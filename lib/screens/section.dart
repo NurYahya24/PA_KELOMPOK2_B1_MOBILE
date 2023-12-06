@@ -1,7 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class section_page extends StatefulWidget {
-  const section_page({super.key});
+  final action, id;
+  const section_page({
+    super.key,
+    required this.action,
+    this.id,
+  });
 
   @override
   State<section_page> createState() => _section_pageState();
@@ -9,9 +16,29 @@ class section_page extends StatefulWidget {
 
 class _section_pageState extends State<section_page> {
   bool isSelected = false;
-  TextEditingController _textController = TextEditingController();
+  final _textController = TextEditingController();
   Color _buttonColor = Color(0xffDDDDDD);
   Color _textColor = Colors.black;
+
+  FirebaseFirestore fs = FirebaseFirestore.instance;
+
+  Stream<QuerySnapshot> getSection() {
+    String col_name = 'S+' + widget.id.toString();
+    return FirebaseFirestore.instance
+    .collection(col_name)
+    .snapshots();
+  }
+
+  // Tambah data
+  void addSection(String namaSection) {
+    var id = FirebaseAuth.instance.currentUser!.uid;
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    final dataSection = {
+      "nama_section": namaSection,
+    };
+    db.collection('S+' + id).add(dataSection).then((DocumentSnapshot) => print(
+        "Berhasil Menambahkan Data Section Dengan ID : ${DocumentSnapshot.id}"));
+  }
 
   @override
   void dispose() {
@@ -23,6 +50,7 @@ class _section_pageState extends State<section_page> {
     setState(() {
       _buttonColor = value.isEmpty ? Color(0xffDDDDDD) : Color(0xFFFF8787);
       _textColor = value.isEmpty ? Colors.black : Colors.white;
+      _textController.text = value;
     });
   }
 
@@ -36,10 +64,7 @@ class _section_pageState extends State<section_page> {
             alignment: Alignment.topLeft,
             child: IconButton(
               onPressed: () {
-                Navigator.pop(
-                  context,
-                  null
-                );
+                Navigator.pop(context, null);
               },
               icon: Icon(Icons.arrow_back_rounded),
               iconSize: 30,
@@ -80,9 +105,12 @@ class _section_pageState extends State<section_page> {
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xFFFF8787)),
                 ),
-                suffixIcon: IconButton(onPressed: (){
-                  _textController.clear();
-                }, icon: Icon(Icons.clear_rounded),),
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    _textController.clear();
+                  },
+                  icon: Icon(Icons.clear_rounded),
+                ),
               ),
             ),
           ),
@@ -92,10 +120,10 @@ class _section_pageState extends State<section_page> {
             child: TextButton(
               onPressed: _buttonColor == Color(0xFFFF8787)
                   ? () {
-                      Navigator.pop(
-                        context,
-                        _textController
-                      );
+                      widget.action == "add"
+                          ? addSection(_textController.text)
+                          : null;
+                      Navigator.of(context).pop();
                     }
                   : null,
               child: Padding(

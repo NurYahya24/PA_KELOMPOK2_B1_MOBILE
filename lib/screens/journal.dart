@@ -343,7 +343,7 @@ class _CreateJournalPageState extends State<CreateJournalPage> {
               visible: isAnyTextFieldFilled,
               child: IconButton(
                   onPressed: () {
-                    widget.aksi == 'add'
+                    widget.aksi == 'buat'
                         ? addJurnal(_judul.text, _konten.text, 1)
                         : editJurnal(_judul.text, _konten.text, 1, widget.id);
                     Navigator.of(context).pop();
