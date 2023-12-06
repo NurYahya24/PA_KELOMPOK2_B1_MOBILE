@@ -38,7 +38,7 @@ class _LoginState extends State<Login> {
           key: _formKey,
           child: Padding(
             padding: const EdgeInsets.all(20),
-            child: Column(
+            child: ListView(
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(height: 15),
