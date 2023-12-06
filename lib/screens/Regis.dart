@@ -129,13 +129,10 @@ class _RegisState extends State<Regis> {
                     Text('Already have account?'),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => Login()),
-                        );
+                        Navigator.of(context).pop();
                       },
                       child: Text(
-                        'Klik here',
+                        'Click here',
                         style: TextStyle(
                             color: const Color.fromRGBO(224, 46, 129, 1),
                             fontWeight: FontWeight.bold),

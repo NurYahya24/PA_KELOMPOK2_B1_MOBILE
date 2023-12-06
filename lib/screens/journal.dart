@@ -2,8 +2,18 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+
+List<Color> colors = [
+  Color.fromRGBO(250, 171, 208, 1),
+  Color.fromRGBO(144, 203, 251, 1),
+  Color.fromRGBO(166, 255, 169, 1),
+  Color.fromRGBO(255, 247, 176, 1),
+  Color.fromRGBO(255, 173, 173, 1),
+  Color.fromRGBO(223, 159, 248, 1),
+  Color.fromRGBO(163, 255, 247, 1),
+  Color.fromRGBO(238, 179, 179, 1),
+];
 
 class JournalPage extends StatefulWidget {
   const JournalPage({super.key});
@@ -14,21 +24,52 @@ class JournalPage extends StatefulWidget {
 
 class _JournalPageState extends State<JournalPage> {
   FirebaseFirestore fs = FirebaseFirestore.instance;
+  Future<dynamic> showAlertDialog(
+      BuildContext context, String judul, String konten, String idDoc) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(judul),
+          content: Text(konten),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("Cancel")),
+            TextButton(
+              onPressed: () {
+                deleteJurnal(idDoc);
+                Navigator.pop(context);
+              },
+              child: Text("Yes"),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   void deleteJurnal(String idDoc) {
     var id = FirebaseAuth.instance.currentUser!.uid;
-    String col_name = "J+" + id.toString();
     FirebaseFirestore db = FirebaseFirestore.instance;
-    db.collection(col_name).doc(idDoc).delete().then(
-        (doc) => print("Document Berhasil Terhapus Dengan id : ${id}"),
-        onError: (e) => print("Error $e"));
+    db
+        .collection('users')
+        .doc(id)
+        .collection('jurnal')
+        .doc(idDoc)
+        .delete()
+        .then((doc) => print("Document Berhasil Terhapus Dengan id : ${id}"),
+            onError: (e) => print("Error $e"));
   }
 
   Stream<QuerySnapshot> getJurnal() {
     var id = FirebaseAuth.instance.currentUser!.uid;
-    String col_name = "J+" + id.toString();
     return FirebaseFirestore.instance
-        .collection(col_name)
+        .collection('users')
+        .doc(id)
+        .collection('jurnal')
         .orderBy('tanggal', descending: true)
         .snapshots();
   }
@@ -141,7 +182,8 @@ class _JournalPageState extends State<JournalPage> {
                                       horizontal: 10.0, vertical: 6.0),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: Color.fromRGBO(64, 75, 96, 0.9),
+                                      color: colors[snapshot.data?.docs[index][
+                                          'warna']], //Color.fromRGBO(64, 75, 96, 0.9),
                                     ),
                                     child: ListTile(
                                       contentPadding: EdgeInsets.symmetric(
@@ -151,20 +193,27 @@ class _JournalPageState extends State<JournalPage> {
                                         decoration: BoxDecoration(
                                             border: Border(
                                           right: BorderSide(
-                                              width: 1, color: Colors.white24),
+                                              width: 1,
+                                              color: const Color.fromARGB(
+                                                  60, 0, 0, 0)),
                                         )),
                                         child: IconButton(
                                           icon: Icon(Icons.delete),
-                                          color: Colors.white60,
+                                          color: Color.fromARGB(153, 0, 0, 0),
                                           onPressed: () {
-                                            deleteJurnal(docID);
+                                            showAlertDialog(
+                                                context,
+                                                "Delete Journal",
+                                                "Are you sure want to delete this journal?",
+                                                docID);
                                           },
                                         ),
                                       ),
                                       title: Text(
                                         snapshot.data?.docs[index]['judul'],
                                         style: TextStyle(
-                                            color: Colors.white,
+                                            color: const Color.fromARGB(
+                                                255, 0, 0, 0),
                                             fontWeight: FontWeight.bold),
                                       ),
                                       subtitle: Expanded(
@@ -174,12 +223,15 @@ class _JournalPageState extends State<JournalPage> {
                                         ),
                                         child: Text(
                                           formatTanggal,
-                                          style: TextStyle(color: Colors.white),
+                                          style: TextStyle(
+                                              color: const Color.fromARGB(
+                                                  255, 0, 0, 0)),
                                         ),
                                       )),
                                       trailing: Icon(
                                         Icons.keyboard_arrow_right,
-                                        color: Colors.white,
+                                        color:
+                                            const Color.fromARGB(255, 0, 0, 0),
                                         size: 30,
                                       ),
                                       onTap: () {
@@ -189,7 +241,13 @@ class _JournalPageState extends State<JournalPage> {
                                               builder: (context) =>
                                                   CreateJournalPage(
                                                     aksi: 'edit',
+                                                    judul: snapshot.data
+                                                        ?.docs[index]['judul'],
+                                                    konten: snapshot.data
+                                                        ?.docs[index]['konten'],
                                                     id: docID,
+                                                    warna: snapshot.data
+                                                        ?.docs[index]['warna'],
                                                   )),
                                         );
                                       },
@@ -212,6 +270,9 @@ class _JournalPageState extends State<JournalPage> {
             MaterialPageRoute(
                 builder: (context) => CreateJournalPage(
                       aksi: 'buat',
+                      warna: 0,
+                      judul: '',
+                      konten: '',
                     )),
           );
         },
@@ -236,12 +297,14 @@ class _JournalPageState extends State<JournalPage> {
 }
 
 class CreateJournalPage extends StatefulWidget {
-  final aksi, id;
-  const CreateJournalPage({
-    super.key,
-    required this.aksi,
-    this.id,
-  });
+  final aksi, id, warna, judul, konten;
+  const CreateJournalPage(
+      {super.key,
+      required this.aksi,
+      this.id,
+      this.warna,
+      this.judul,
+      this.konten});
 
   @override
   State<CreateJournalPage> createState() => _CreateJournalPageState();
@@ -249,26 +312,11 @@ class CreateJournalPage extends StatefulWidget {
 
 class _CreateJournalPageState extends State<CreateJournalPage> {
   FirebaseFirestore fs = FirebaseFirestore.instance;
-  Color selectedColor = Color.fromRGBO(250, 171, 208, 1);
+  int index_warna = 0;
+  Color selectedColor = colors[0]; //Color.fromRGBO(250, 171, 208, 1);
   bool isAnyTextFieldFilled = false;
-  final _judul = TextEditingController();
-  final _konten = TextEditingController();
-
-  List<Color> colors = [
-    Color.fromRGBO(250, 171, 208, 1),
-    Color.fromRGBO(144, 203, 251, 1),
-    Color.fromRGBO(166, 255, 169, 1),
-    Color.fromRGBO(255, 247, 176, 1),
-    Color.fromRGBO(255, 173, 173, 1),
-    Color.fromRGBO(223, 159, 248, 1),
-    Color.fromRGBO(163, 255, 247, 1),
-    Color.fromRGBO(238, 179, 179, 1),
-  ];
-
-  Stream<QuerySnapshot> getJurnal() {
-    String col_name = "J+" + widget.id.toString();
-    return FirebaseFirestore.instance.collection(col_name).snapshots();
-  }
+  var _judul = TextEditingController();
+  var _konten = TextEditingController();
 
   void addJurnal(String judul, String konten, int warna) {
     var id = FirebaseAuth.instance.currentUser!.uid;
@@ -279,25 +327,40 @@ class _CreateJournalPageState extends State<CreateJournalPage> {
       "tanggal": Timestamp.now(),
       "warna": warna,
     };
-    db.collection('J+' + id).add(data).then((DocumentSnapshot) =>
-        print("Berhasil Menambahkan Data Dengan  ID : ${DocumentSnapshot.id}"));
+    db.collection('users').doc(id).collection('jurnal').add(data).then(
+        (DocumentSnapshot) => print(
+            "Berhasil Menambahkan Data Dengan  ID : ${DocumentSnapshot.id}"));
   }
 
   void editJurnal(String judul, String konten, int warna, String idDoc) {
     final data = {
       "judul": judul,
       "konten": konten,
-      "tanggal": Timestamp.now(),
       "warna": warna,
     };
     var id = FirebaseAuth.instance.currentUser!.uid;
-    String col_name = "J+" + id.toString();
     FirebaseFirestore.instance
-        .collection(col_name)
+        .collection('users')
+        .doc(id)
+        .collection('jurnal')
         .doc(idDoc)
         .update(data)
         .then((DocumentSnapshot) =>
             print("Berhasil Mengubah Data Dengan  ID : ${idDoc}"));
+  }
+
+  void colorChanges(String idDoc, int warna) {
+    final data = {
+      "warna": warna,
+    };
+    var id = FirebaseAuth.instance.currentUser!.uid;
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(id)
+        .collection('jurnal')
+        .doc(idDoc)
+        .update(data)
+        .then((DocumentSnapshot) => print("Berhasil Mengubah Warna: ${idDoc}"));
   }
 
   void _showColorPicker(BuildContext context) {
@@ -313,8 +376,10 @@ class _CreateJournalPageState extends State<CreateJournalPage> {
               return GestureDetector(
                 onTap: () {
                   setState(() {
-                    selectedColor = colors[index];
+                    index_warna = index;
+                    selectedColor = colors[index_warna];
                   });
+                  colorChanges(widget.id, index_warna);
                   Navigator.pop(context);
                 },
                 child: Padding(
@@ -333,6 +398,23 @@ class _CreateJournalPageState extends State<CreateJournalPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _judul.text = widget.judul;
+      _konten.text = widget.konten;
+      selectedColor = colors[widget.warna];
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _judul.dispose();
+    _konten.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: selectedColor,
@@ -343,9 +425,10 @@ class _CreateJournalPageState extends State<CreateJournalPage> {
               visible: isAnyTextFieldFilled,
               child: IconButton(
                   onPressed: () {
-                    widget.aksi == 'add'
-                        ? addJurnal(_judul.text, _konten.text, 1)
-                        : editJurnal(_judul.text, _konten.text, 1, widget.id);
+                    widget.aksi == 'buat'
+                        ? addJurnal(_judul.text, _konten.text, index_warna)
+                        : editJurnal(
+                            _judul.text, _konten.text, index_warna, widget.id);
                     Navigator.of(context).pop();
                   },
                   icon: Icon(Icons.check))),

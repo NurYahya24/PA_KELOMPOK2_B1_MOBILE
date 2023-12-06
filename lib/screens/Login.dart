@@ -127,7 +127,7 @@ class _LoginState extends State<Login> {
                     Text('You dont have account?'),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => Regis()),
                         );
