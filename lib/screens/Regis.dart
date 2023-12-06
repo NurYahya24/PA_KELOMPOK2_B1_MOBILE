@@ -68,7 +68,7 @@ class _RegisState extends State<Regis> {
                       "create your account",
                       style: GoogleFonts.quicksand(
                         textStyle: TextStyle(
-                          fontSize: 15,
+                          fontSize: 15, //dedfuewgd
                           fontWeight: FontWeight.w400,
                         ),
                       ),
