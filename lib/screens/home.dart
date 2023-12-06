@@ -41,6 +41,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 255, 226, 226),
         leading: GestureDetector(
           onTap: () {
             Navigator.push(
@@ -53,10 +54,14 @@ class _HomeState extends State<Home> {
             );
           },
           child: Padding(
-            padding: EdgeInsets.only(top: 15, left: 25),
+            padding: EdgeInsets.only(left: 25),
             child: CircleAvatar(
               radius: 60,
-              child: Icon(Icons.person),
+              backgroundColor: const Color.fromRGBO(224, 46, 129, 1),
+              child: Icon(
+                Icons.person,
+                color: Colors.white,
+              ),
             ),
           ),
         ),

@@ -178,7 +178,7 @@ class _JournalPageState extends State<JournalPage> {
                                         style: GoogleFonts.quicksand(),
                                       ),
                                       subtitle: Text(
-                                        'Make New Journal',
+                                        'Create Your Own Journal',
                                         style: GoogleFonts.quicksand(),
                                       ),
                                     ),
@@ -514,6 +514,7 @@ class _CreateJournalPageState extends State<CreateJournalPage> {
                   maxLength: 50, // Set panjang maksimum karakter
                   maxLines: null,
                   controller: _judul,
+                  cursorColor: Color.fromRGBO(106, 106, 106, 1),
                 ),
               ),
               Container(
@@ -536,6 +537,7 @@ class _CreateJournalPageState extends State<CreateJournalPage> {
                   ),
                   maxLines: null,
                   controller: _konten,
+                  cursorColor: Color.fromRGBO(106, 106, 106, 1),
                 ),
               ),
             ],
