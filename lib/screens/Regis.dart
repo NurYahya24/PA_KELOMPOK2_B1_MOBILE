@@ -25,8 +25,9 @@ class _RegisState extends State<Regis> {
     if (!_formKey.currentState!.validate()) return;
     final email = _ctrlEmail.value.text;
     final password = _ctrlPassword.value.text;
+    final username = _ctrlUsername.value.text;
     setState(() => _loading = true);
-    await Auth().regis(email, password);
+    await Auth().regis(email, password, username);
     setState(() => _loading = false);
   }
 
