@@ -22,13 +22,6 @@ class _section_pageState extends State<section_page> {
 
   FirebaseFirestore fs = FirebaseFirestore.instance;
 
-  Stream<QuerySnapshot> getSection() {
-    String col_name = 'S+' + widget.id.toString();
-    return FirebaseFirestore.instance
-    .collection(col_name)
-    .snapshots();
-  }
-
   // Tambah data
   void addSection(String namaSection) {
     var id = FirebaseAuth.instance.currentUser!.uid;
@@ -36,7 +29,7 @@ class _section_pageState extends State<section_page> {
     final dataSection = {
       "nama_section": namaSection,
     };
-    db.collection('S+' + id).add(dataSection).then((DocumentSnapshot) => print(
+    db.collection('users').doc(id).collection('section').add(dataSection).then((DocumentSnapshot) => print(
         "Berhasil Menambahkan Data Section Dengan ID : ${DocumentSnapshot.id}"));
   }
 
@@ -119,9 +112,9 @@ class _section_pageState extends State<section_page> {
             child: TextButton(
               onPressed: _buttonColor == Color(0xFFFF8787)
                   ? () {
-                      widget.action == "add"
-                          ? addSection(_textController.text)
-                          : null;
+                      if(widget.action == "add"){
+                        addSection(_textController.text);
+                      }
                       Navigator.of(context).pop();
                     }
                   : null,

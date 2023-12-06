@@ -14,9 +14,12 @@ class _highlight_pageState extends State<highlight_page> {
   FirebaseFirestore fs = FirebaseFirestore.instance;
 
   Stream<QuerySnapshot> getSection() {
-    var id = FirebaseAuth.instance.currentUser!.uid;
-    String col_name = 'S+' + id.toString();
-    return FirebaseFirestore.instance.collection(col_name).snapshots();
+     var id = FirebaseAuth.instance.currentUser!.uid;
+    return FirebaseFirestore.instance
+    .collection('users')
+    .doc(id)
+    .collection('section')
+    .snapshots();
   }
 
   @override
