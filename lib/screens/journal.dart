@@ -182,6 +182,7 @@ class _JournalPageState extends State<JournalPage> {
                                       horizontal: 10.0, vertical: 6.0),
                                   child: Container(
                                     decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
                                       color: colors[snapshot.data?.docs[index][
                                           'warna']], //Color.fromRGBO(64, 75, 96, 0.9),
                                     ),

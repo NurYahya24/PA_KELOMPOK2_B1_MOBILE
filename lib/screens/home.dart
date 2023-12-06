@@ -114,155 +114,222 @@ class _Profile_pageState extends State<Profile_page> {
           style: TextStyle(
               color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        actions: [
-          Container(
-            width: 30,
-            height: 30,
-            child: Icon(Icons.dark_mode, color: Colors.black, size: 28),
+      ),
+
+      body: ListView(
+        padding: const EdgeInsets.all(10),
+        children: [
+          // COLUMN THAT WILL CONTAIN THE PROFILE
+          Column(
+            children: [
+              CircleAvatar(
+                radius: 50,
+                backgroundImage: NetworkImage(
+                  "https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=386&q=80",
+                ),
+              ),
+              SizedBox(height: 10),
+              Text(
+                "Nama",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text("Email"),
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.yellow,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.edit,
+                    color: Colors.black,
+                  ),
+                  label: const Text(
+                    'Edit Profile',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+              )
+            ],
           ),
-          Switch(
-            value: _isSwitched,
-            onChanged: (value) {
-              setState(() {
-                _isSwitched = value;
-              });
-            },
-            activeColor: Colors.white,
-            activeTrackColor: Color.fromRGBO(224, 46, 129, 1),
-            inactiveThumbColor: Colors.white,
-            inactiveTrackColor: Colors.grey,
+          const SizedBox(height: 35),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 5),
+            child: Card(
+              elevation: 4,
+              shadowColor: Colors.black12,
+              child: ListTile(
+                leading: Icon(Icons.light_mode),
+                title: Text('Dark Mode'),
+                trailing: Switch(
+                  value: _isSwitched,
+                  onChanged: (value) {
+                    setState(() {
+                      _isSwitched = value;
+                    });
+                  },
+                  activeColor: Colors.white,
+                  activeTrackColor: Color.fromRGBO(224, 46, 129, 1),
+                  inactiveThumbColor: Colors.white,
+                  inactiveTrackColor: Colors.grey,
+                ),
+                onTap: () {},
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 5),
+            child: Card(
+              elevation: 4,
+              shadowColor: Colors.black12,
+              child: ListTile(
+                leading: Icon(Icons.logout),
+                title: Text('Log Out'),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {},
+              ),
+            ),
           ),
         ],
       ),
-      body: Container(
-        padding: EdgeInsets.all(20.0),
-        child: Center(
-          child: Column(children: <Widget>[
-            SizedBox(
-              height: 30,
-            ),
-            CircleAvatar(
-              backgroundColor: Color.fromARGB(255, 255, 226, 226),
-              // backgroundImage: AssetImage(ima),
-              radius: 70,
-            ),
-            SizedBox(height: 15),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 80,
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 255, 226, 226),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              // child: ListView(
-              //   scrollDirection: Axis.horizontal,
-              //   children: [
-              //     for (int i = 0; i < _avatar.length; i++)
-              //       GestureDetector(
-              //         onTap: () => {} ,
-              //         child: Container(
-              //           width: 80,
-              //           margin: EdgeInsets.only(top: 5, left: 2),
-              //           child: Column(
-              //             children: [
-              //               CircleAvatar(
-              //                 radius: 35,
-              //                 backgroundColor: Colors.white,
-              //                 child: CircleAvatar(
-              //                   backgroundImage: Image.asset('assets/' +
-              //                           _avatar[i].toString() +
-              //                           '.png')
-              //                       .image,
-              //                   radius: 32,
-              //                 ),
-              //               )
-              //             ],
-              //           ),
-              //         ),
-              //       )
-              //   ],
-              // ),
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  for (int i = 0; i < _avatar.length; i++)
-                    GestureDetector(
-                      onTap: () => {},
-                      child: Container(
-                        width: 80,
-                        margin: EdgeInsets.only(top: 5, left: 2),
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              radius: 35,
-                              backgroundColor: Colors.white,
-                              child: CircleAvatar(
-                                backgroundImage: Image.asset('assets/' +
-                                        _avatar[i].toString() +
-                                        '.png')
-                                    .image,
-                                radius: 32,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Container(
-              padding: EdgeInsets.all(10.0),
-              height: 40,
-              width: 300,
-              decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 255, 234, 234),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.grey, width: 2)),
-              child: TextField(
-                decoration: InputDecoration(
-                  // hintText: nama,
-                  hintStyle: TextStyle(
-                    color: Colors.black,
-                  ),
-                  suffix: Icon(
-                    Icons.edit,
-                    color: Colors.grey,
-                    size: 15,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 100),
-          ]),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          showAlertDialog(
-            context,
-            "LOGOUT",
-            "Are you sure want to logout this account?",
-          );
-        },
-        backgroundColor: Color.fromRGBO(224, 46, 129, 1),
-        label: Text(
-          'Logout',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.white,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        icon: Icon(
-          Icons.logout_outlined,
-          color: Colors.white,
-          size: 20,
-        ),
-      ),
+
+      // body: Container(
+      //   padding: EdgeInsets.all(20.0),
+      //   child: Center(
+      //     child: Column(children: <Widget>[
+      //       SizedBox(
+      //         height: 30,
+      //       ),
+      //       CircleAvatar(
+      //         backgroundColor: Color.fromARGB(255, 255, 226, 226),
+      //         // backgroundImage: AssetImage(ima),
+      //         radius: 70,
+      //       ),
+      //       SizedBox(height: 15),
+      //       Container(
+      //         width: MediaQuery.of(context).size.width,
+      //         height: 80,
+      //         decoration: BoxDecoration(
+      //           color: Color.fromARGB(255, 255, 226, 226),
+      //           borderRadius: BorderRadius.circular(15),
+      //         ),
+      //         // child: ListView(
+      //         //   scrollDirection: Axis.horizontal,
+      //         //   children: [
+      //         //     for (int i = 0; i < _avatar.length; i++)
+      //         //       GestureDetector(
+      //         //         onTap: () => {} ,
+      //         //         child: Container(
+      //         //           width: 80,
+      //         //           margin: EdgeInsets.only(top: 5, left: 2),
+      //         //           child: Column(
+      //         //             children: [
+      //         //               CircleAvatar(
+      //         //                 radius: 35,
+      //         //                 backgroundColor: Colors.white,
+      //         //                 child: CircleAvatar(
+      //         //                   backgroundImage: Image.asset('assets/' +
+      //         //                           _avatar[i].toString() +
+      //         //                           '.png')
+      //         //                       .image,
+      //         //                   radius: 32,
+      //         //                 ),
+      //         //               )
+      //         //             ],
+      //         //           ),
+      //         //         ),
+      //         //       )
+      //         //   ],
+      //         // ),
+      //         child: ListView(
+      //           scrollDirection: Axis.horizontal,
+      //           children: [
+      //             for (int i = 0; i < _avatar.length; i++)
+      //               GestureDetector(
+      //                 onTap: () => {},
+      //                 child: Container(
+      //                   width: 80,
+      //                   margin: EdgeInsets.only(top: 5, left: 2),
+      //                   child: Column(
+      //                     children: [
+      //                       CircleAvatar(
+      //                         radius: 35,
+      //                         backgroundColor: Colors.white,
+      //                         child: CircleAvatar(
+      //                           backgroundImage: Image.asset('assets/' +
+      //                                   _avatar[i].toString() +
+      //                                   '.png')
+      //                               .image,
+      //                           radius: 32,
+      //                         ),
+      //                       )
+      //                     ],
+      //                   ),
+      //                 ),
+      //               )
+      //           ],
+      //         ),
+      //       ),
+      //       SizedBox(
+      //         height: 30,
+      //       ),
+      //       Container(
+      //         padding: EdgeInsets.all(10.0),
+      //         height: 40,
+      //         width: 300,
+      //         decoration: BoxDecoration(
+      //             color: const Color.fromARGB(255, 255, 234, 234),
+      //             borderRadius: BorderRadius.circular(10),
+      //             border: Border.all(color: Colors.grey, width: 2)),
+      //         child: TextField(
+      //           decoration: InputDecoration(
+      //             // hintText: nama,
+      //             hintStyle: TextStyle(
+      //               color: Colors.black,
+      //             ),
+      //             suffix: Icon(
+      //               Icons.edit,
+      //               color: Colors.grey,
+      //               size: 15,
+      //             ),
+      //           ),
+      //         ),
+      //       ),
+      //       SizedBox(height: 100),
+      //     ]),
+      //   ),
+      // ),
+      // floatingActionButton: FloatingActionButton.extended(
+      //   onPressed: () {
+      //     showAlertDialog(
+      //       context,
+      //       "LOGOUT",
+      //       "Are you sure want to logout this account?",
+      //     );
+      //   },
+      //   backgroundColor: Color.fromRGBO(224, 46, 129, 1),
+      //   label: Text(
+      //     'Logout',
+      //     style: TextStyle(
+      //       fontSize: 16,
+      //       color: Colors.white,
+      //       fontWeight: FontWeight.w500,
+      //     ),
+      //   ),
+      //   icon: Icon(
+      //     Icons.logout_outlined,
+      //     color: Colors.white,
+      //     size: 20,
+      //   ),
+      // ),
     );
   }
 
@@ -293,3 +360,31 @@ class _Profile_pageState extends State<Profile_page> {
     );
   }
 }
+
+class CustomListTile {
+  final IconData icon;
+  final String title;
+  CustomListTile({
+    required this.icon,
+    required this.title,
+  });
+}
+
+List<CustomListTile> customListTiles = [
+  CustomListTile(
+    icon: Icons.insights,
+    title: "Activity",
+  ),
+  CustomListTile(
+    icon: Icons.location_on_outlined,
+    title: "Location",
+  ),
+  CustomListTile(
+    title: "Notifications",
+    icon: CupertinoIcons.bell,
+  ),
+  CustomListTile(
+    title: "Logout",
+    icon: CupertinoIcons.arrow_right_arrow_left,
+  ),
+];
