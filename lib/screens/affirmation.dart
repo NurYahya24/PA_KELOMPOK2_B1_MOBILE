@@ -47,7 +47,9 @@ class affirmation_page extends StatelessWidget {
                 'Better Mental Health',
                 style: GoogleFonts.quicksand(
                   textStyle: TextStyle(
-                      color: Colors.black,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.black
+                          : Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
@@ -107,7 +109,9 @@ class affirmation_page extends StatelessWidget {
                 'Balance Your Chakra',
                 style: GoogleFonts.quicksand(
                   textStyle: TextStyle(
-                      color: Colors.black,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.black
+                          : Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),

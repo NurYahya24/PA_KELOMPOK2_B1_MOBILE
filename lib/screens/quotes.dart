@@ -24,7 +24,9 @@ class quotes_page extends StatelessWidget {
                     textStyle: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 17,
-                      color: Colors.black,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.black
+                          : Colors.white,
                     ),
                   ),
                 ),
@@ -59,7 +61,9 @@ class quotes_page extends StatelessWidget {
                     textStyle: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 17,
-                      color: Colors.black,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.black
+                          : Colors.white,
                     ),
                   ),
                 ),
@@ -94,7 +98,9 @@ class quotes_page extends StatelessWidget {
                     textStyle: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 17,
-                      color: Colors.black,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.black
+                          : Colors.white,
                     ),
                   ),
                 ),
@@ -129,7 +135,9 @@ class quotes_page extends StatelessWidget {
                     textStyle: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 17,
-                      color: Colors.black,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.black
+                          : Colors.white,
                     ),
                   ),
                 ),
@@ -164,7 +172,9 @@ class quotes_page extends StatelessWidget {
                     textStyle: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 17,
-                      color: Colors.black,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.black
+                          : Colors.white,
                     ),
                   ),
                 ),

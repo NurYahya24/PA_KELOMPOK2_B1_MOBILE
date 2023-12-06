@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'section.dart';
@@ -20,8 +22,23 @@ class _highlight_pageState extends State<highlight_page> {
         .collection('users')
         .doc(id)
         .collection('section')
+        .orderBy('tanggal', descending: true)
         .snapshots();
   }
+
+  // void deleteFolder(String idSection) async {
+  //   var idUser = FirebaseAuth.instance.currentUser!.uid;
+  //   final folderRef =
+  //       FirebaseStorage.instance.ref().child("highlight/$idUser/$idSection");
+  //   FirebaseFirestore db = FirebaseFirestore.instance;
+  //   db
+  //       .collection('users')
+  //       .doc(idUser)
+  //       .collection('section')
+  //       .doc(idSection)
+  //       .delete();
+  //   await folderRef.delete();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -47,31 +64,124 @@ class _highlight_pageState extends State<highlight_page> {
                   case ConnectionState.waiting:
                     return Center(child: CircularProgressIndicator());
                   default:
-                    int index = 0;
-                    int panjang = snapshot.data?.docs.length as int;
-                    for (int i = 0; i < panjang; i++) {
-                      if (snapshot.data!.docs[i].id ==
-                          FirebaseAuth.instance.currentUser!.uid) {
-                        index = i;
-                      }
-                    }
                     if (snapshot.hasError) {
                       return Text(
                         'Terjadi Kesalahan Saat Membaca Data',
                         style: GoogleFonts.quicksand(),
                       );
                     } else {
-                      return Container(
-                        margin: EdgeInsets.all(24),
-                        child: Text(
-                          snapshot.data?.docs[index]['section_name'],
-                          style: GoogleFonts.quicksand(
-                            textStyle: TextStyle(
-                              fontSize: 20,
-                            ),
+                      if (snapshot.data!.docs.length == 0) {
+                        return Center(
+                          child: Card(
+                            child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: <Widget>[
+                                  ListTile(
+                                    leading: ConstrainedBox(
+                                      constraints: const BoxConstraints(
+                                        minWidth: 100,
+                                        minHeight: 190,
+                                        maxWidth: 200,
+                                        maxHeight: 200,
+                                      ),
+                                      child: Icon(Icons.menu_book, size: 45),
+                                    ),
+                                    title: Text(
+                                      'No Highlight',
+                                      style: GoogleFonts.quicksand(),
+                                    ),
+                                    subtitle: Text(
+                                      'Create Your Own Highlight',
+                                      style: GoogleFonts.quicksand(),
+                                    ),
+                                  ),
+                                ]),
                           ),
-                        ),
-                      );
+                        );
+                      } else {
+                        return ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: snapshot.data?.docs.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final docID = snapshot.data!.docs[index].id;
+                              final Timestamp timestamp = snapshot
+                                  .data?.docs[index]['tanggal'] as Timestamp;
+                              final DateTime dateTime = timestamp.toDate();
+                              var formatTanggal =
+                                  "${dateTime.day}-${dateTime.month}-${dateTime.year}";
+                              return Card(
+                                elevation: 8,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 6.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    color: Color.fromRGBO(216, 216, 216, 0.898),
+                                  ),
+                                  child: ListTile(
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    leading: Container(
+                                      padding: EdgeInsets.only(right: 8),
+                                      decoration: BoxDecoration(
+                                          border: Border(
+                                        right: BorderSide(
+                                            width: 1,
+                                            color: const Color.fromARGB(
+                                                60, 0, 0, 0)),
+                                      )),
+                                      child: IconButton(
+                                        icon: Icon(Icons.delete),
+                                        color: Color.fromARGB(153, 0, 0, 0),
+                                        onPressed: () {},
+                                      ),
+                                    ),
+                                    title: Text(
+                                      snapshot.data?.docs[index]['nama'],
+                                      style: GoogleFonts.quicksand(
+                                        textStyle: TextStyle(
+                                            color: const Color.fromARGB(
+                                                255, 0, 0, 0),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    subtitle: Expanded(
+                                        child: Padding(
+                                      padding: EdgeInsets.only(
+                                        left: 0,
+                                      ),
+                                      child: Text(
+                                        formatTanggal,
+                                        style: GoogleFonts.quicksand(
+                                          textStyle: TextStyle(
+                                              color: const Color.fromARGB(
+                                                  255, 0, 0, 0)),
+                                        ),
+                                      ),
+                                    )),
+                                    trailing: Icon(
+                                      Icons.keyboard_arrow_right,
+                                      color: const Color.fromARGB(255, 0, 0, 0),
+                                      size: 30,
+                                    ),
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => sectionView(
+                                                  idSection: docID,
+                                                  nama: snapshot.data
+                                                      ?.docs[index]['nama'],
+                                                  tanggal: formatTanggal,
+                                                )),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              );
+                            });
+                      }
                     }
                 }
               }),

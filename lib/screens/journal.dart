@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:daily_jurnal/screens/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -127,13 +128,18 @@ class _JournalPageState extends State<JournalPage> {
                                 style: GoogleFonts.quicksand(),
                               );
                             } else {
+                              profile_index =
+                                  snapshot.data?.docs[index]['avatar'];
                               return Text(
                                 snapshot.data?.docs[index]['username'] +
                                     "'s Journals",
                                 style: GoogleFonts.quicksand(
                                   textStyle: TextStyle(
                                     fontSize: 25,
-                                    color: Colors.black,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? Colors.black
+                                        : Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -446,6 +452,8 @@ class _CreateJournalPageState extends State<CreateJournalPage> {
     return Scaffold(
       backgroundColor: selectedColor,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        actionsIconTheme: IconThemeData(color: Colors.black),
         backgroundColor: selectedColor,
         actions: [
           Visibility(
@@ -511,6 +519,7 @@ class _CreateJournalPageState extends State<CreateJournalPage> {
                     hintText: 'Title',
                     border: InputBorder.none,
                   ),
+                  style: TextStyle(color: Colors.black),
                   maxLength: 50, // Set panjang maksimum karakter
                   maxLines: null,
                   controller: _judul,
@@ -535,6 +544,7 @@ class _CreateJournalPageState extends State<CreateJournalPage> {
                     hintText: 'Write your journal here',
                     border: InputBorder.none,
                   ),
+                  style: TextStyle(color: Colors.black),
                   maxLines: null,
                   controller: _konten,
                   cursorColor: Color.fromRGBO(106, 106, 106, 1),

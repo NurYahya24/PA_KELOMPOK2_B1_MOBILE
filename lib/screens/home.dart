@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:daily_jurnal/provider/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'journal.dart';
 import 'affirmation.dart';
 import 'highlight.dart';
@@ -11,7 +13,6 @@ import 'quotes.dart';
 int profile_index = 0;
 
 List<String> _avatar = ['1', '2', '3', '4', '5', '6', '7'];
-bool _isSwitched = false;
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -215,6 +216,7 @@ class _Profile_pageState extends State<Profile_page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Color.fromARGB(255, 255, 226, 226),
         // centerTitle: true,
         title: Text(
@@ -310,24 +312,30 @@ class _Profile_pageState extends State<Profile_page> {
               elevation: 4,
               shadowColor: Colors.black12,
               child: ListTile(
-                leading: Icon(Icons.light_mode),
+                leading: Icon(Provider.of<Tema>(context).DarkMode
+                    ? Icons.dark_mode
+                    : Icons.light_mode),
                 title: Text(
                   'Dark Mode',
                   style: GoogleFonts.quicksand(),
                 ),
                 trailing: Switch(
-                  value: _isSwitched,
-                  onChanged: (value) {
-                    setState(() {
-                      _isSwitched = value;
-                    });
+                  value: Provider.of<Tema>(context).DarkMode,
+                  onChanged: (bool value) {
+                    Provider.of<Tema>(context, listen: false)
+                        .gantiTema(value ? ThemeMode.dark : ThemeMode.light);
                   },
                   activeColor: Colors.white,
                   activeTrackColor: Color.fromRGBO(224, 46, 129, 1),
                   inactiveThumbColor: Colors.white,
                   inactiveTrackColor: Colors.grey,
                 ),
-                onTap: () {},
+                onTap: () {
+                  Provider.of<Tema>(context, listen: false).gantiTema(
+                      Provider.of<Tema>(context, listen: false).DarkMode
+                          ? ThemeMode.light
+                          : ThemeMode.dark);
+                },
               ),
             ),
           ),
