@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'journal.dart';
 import 'affirmation.dart';
 import 'highlight.dart';
@@ -111,8 +112,10 @@ class _Profile_pageState extends State<Profile_page> {
         // centerTitle: true,
         title: Text(
           'Profile & Settings',
-          style: TextStyle(
-              color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+          style: GoogleFonts.quicksand(
+            textStyle: TextStyle(
+                color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
 
@@ -131,12 +134,17 @@ class _Profile_pageState extends State<Profile_page> {
               SizedBox(height: 10),
               Text(
                 "Nama",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                style: GoogleFonts.quicksand(
+                  textStyle: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-              Text("Email"),
+              Text(
+                "Email",
+                style: GoogleFonts.quicksand(),
+              ),
               Padding(
                 padding: EdgeInsets.only(top: 20),
                 child: ElevatedButton.icon(
@@ -152,9 +160,11 @@ class _Profile_pageState extends State<Profile_page> {
                     Icons.edit,
                     color: Colors.black,
                   ),
-                  label: const Text(
+                  label: Text(
                     'Edit Profile',
-                    style: TextStyle(color: Colors.black),
+                    style: GoogleFonts.quicksand(
+                      textStyle: TextStyle(color: Colors.black),
+                    ),
                   ),
                 ),
               )
@@ -168,7 +178,10 @@ class _Profile_pageState extends State<Profile_page> {
               shadowColor: Colors.black12,
               child: ListTile(
                 leading: Icon(Icons.light_mode),
-                title: Text('Dark Mode'),
+                title: Text(
+                  'Dark Mode',
+                  style: GoogleFonts.quicksand(),
+                ),
                 trailing: Switch(
                   value: _isSwitched,
                   onChanged: (value) {
@@ -192,7 +205,10 @@ class _Profile_pageState extends State<Profile_page> {
               shadowColor: Colors.black12,
               child: ListTile(
                 leading: Icon(Icons.logout),
-                title: Text('Log Out'),
+                title: Text(
+                  'Log Out',
+                  style: GoogleFonts.quicksand(),
+                ),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () {},
               ),
@@ -346,13 +362,19 @@ class _Profile_pageState extends State<Profile_page> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text("Cancel")),
+                child: Text(
+                  "Cancel",
+                  style: GoogleFonts.quicksand(),
+                )),
             TextButton(
               onPressed: () {
                 Navigator.of(context).popUntil((route) => route.isFirst);
                 FirebaseAuth.instance.signOut();
               },
-              child: Text("Yes"),
+              child: Text(
+                "Yes",
+                style: GoogleFonts.quicksand(),
+              ),
             ),
           ],
         );

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 List<Color> colors = [
   Color.fromRGBO(250, 171, 208, 1),
@@ -37,13 +38,19 @@ class _JournalPageState extends State<JournalPage> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text("Cancel")),
+                child: Text(
+                  "Cancel",
+                  style: GoogleFonts.quicksand(),
+                )),
             TextButton(
               onPressed: () {
                 deleteJurnal(idDoc);
                 Navigator.pop(context);
               },
-              child: Text("Yes"),
+              child: Text(
+                "Yes",
+                style: GoogleFonts.quicksand(),
+              ),
             ),
           ],
         );
@@ -97,11 +104,12 @@ class _JournalPageState extends State<JournalPage> {
                           case ConnectionState.waiting:
                             return Text(
                               "Loading.... Journals",
-                              style: TextStyle(
-                                fontFamily: 'Inter',
-                                fontSize: 25,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
+                              style: GoogleFonts.quicksand(
+                                textStyle: TextStyle(
+                                  fontSize: 25,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             );
                           default:
@@ -114,16 +122,20 @@ class _JournalPageState extends State<JournalPage> {
                               }
                             }
                             if (snapshot.hasError) {
-                              return Text('Error saat membaca data...');
+                              return Text(
+                                'Error saat membaca data...',
+                                style: GoogleFonts.quicksand(),
+                              );
                             } else {
                               return Text(
                                 snapshot.data?.docs[index]['username'] +
                                     "'s Journals",
-                                style: TextStyle(
-                                  fontFamily: 'Inter',
-                                  fontSize: 25,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
+                                style: GoogleFonts.quicksand(
+                                  textStyle: TextStyle(
+                                    fontSize: 25,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               );
                             }
@@ -140,7 +152,10 @@ class _JournalPageState extends State<JournalPage> {
                       return Center(child: CircularProgressIndicator());
                     default:
                       if (snapshot.hasError) {
-                        return Text('Error saat membaca data...');
+                        return Text(
+                          'Error saat membaca data...',
+                          style: GoogleFonts.quicksand(),
+                        );
                       } else {
                         if (snapshot.data!.docs.length == 0) {
                           return Center(
@@ -158,8 +173,14 @@ class _JournalPageState extends State<JournalPage> {
                                         ),
                                         child: Icon(Icons.menu_book, size: 45),
                                       ),
-                                      title: Text('No Journal'),
-                                      subtitle: const Text('Make New Journal'),
+                                      title: Text(
+                                        'No Journal',
+                                        style: GoogleFonts.quicksand(),
+                                      ),
+                                      subtitle: Text(
+                                        'Make New Journal',
+                                        style: GoogleFonts.quicksand(),
+                                      ),
                                     ),
                                   ]),
                             ),
@@ -212,10 +233,12 @@ class _JournalPageState extends State<JournalPage> {
                                       ),
                                       title: Text(
                                         snapshot.data?.docs[index]['judul'],
-                                        style: TextStyle(
-                                            color: const Color.fromARGB(
-                                                255, 0, 0, 0),
-                                            fontWeight: FontWeight.bold),
+                                        style: GoogleFonts.quicksand(
+                                          textStyle: TextStyle(
+                                              color: const Color.fromARGB(
+                                                  255, 0, 0, 0),
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                       subtitle: Expanded(
                                           child: Padding(
@@ -224,9 +247,11 @@ class _JournalPageState extends State<JournalPage> {
                                         ),
                                         child: Text(
                                           formatTanggal,
-                                          style: TextStyle(
-                                              color: const Color.fromARGB(
-                                                  255, 0, 0, 0)),
+                                          style: GoogleFonts.quicksand(
+                                            textStyle: TextStyle(
+                                                color: const Color.fromARGB(
+                                                    255, 0, 0, 0)),
+                                          ),
                                         ),
                                       )),
                                       trailing: Icon(
@@ -280,11 +305,12 @@ class _JournalPageState extends State<JournalPage> {
         backgroundColor: Color.fromRGBO(224, 46, 129, 1),
         label: Text(
           'Write Entry',
-          style: TextStyle(
-            fontFamily: 'Inter',
-            fontSize: 16,
-            color: Colors.white,
-            fontWeight: FontWeight.w500,
+          style: GoogleFonts.quicksand(
+            textStyle: TextStyle(
+              fontSize: 16,
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
         icon: Image.asset(
@@ -448,20 +474,22 @@ class _CreateJournalPageState extends State<CreateJournalPage> {
                 child: widget.aksi == 'buat'
                     ? Text(
                         'Create Journal',
-                        style: TextStyle(
-                          fontFamily: 'Inter',
-                          color: Color.fromRGBO(86, 85, 85, 1),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
+                        style: GoogleFonts.quicksand(
+                          textStyle: TextStyle(
+                            color: Color.fromRGBO(86, 85, 85, 1),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       )
                     : Text(
                         'Edit Journal',
-                        style: TextStyle(
-                          fontFamily: 'Inter',
-                          color: Color.fromRGBO(86, 85, 85, 1),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
+                        style: GoogleFonts.quicksand(
+                          textStyle: TextStyle(
+                            color: Color.fromRGBO(86, 85, 85, 1),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
               ),
