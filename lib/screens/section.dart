@@ -1,4 +1,3 @@
-import 'package:daily_jurnal/screens/highlight.dart';
 import 'package:flutter/material.dart';
 
 class section_page extends StatefulWidget {
@@ -39,9 +38,7 @@ class _section_pageState extends State<section_page> {
               onPressed: () {
                 Navigator.pop(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => const highlight_page(),
-                  ),
+                  null
                 );
               },
               icon: Icon(Icons.arrow_back_rounded),
@@ -70,7 +67,7 @@ class _section_pageState extends State<section_page> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 24, right: 24, bottom: 350),
+            margin: EdgeInsets.only(left: 24, right: 24),
             child: TextField(
               controller: _textController,
               onChanged: _onTextFieldChanged,
@@ -83,29 +80,37 @@ class _section_pageState extends State<section_page> {
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xFFFF8787)),
                 ),
+                suffixIcon: IconButton(onPressed: (){
+                  _textController.clear();
+                }, icon: Icon(Icons.clear_rounded),),
               ),
             ),
           ),
+          SizedBox(height: 300),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 24),
-            alignment: Alignment.bottomCenter,
-            child: SizedBox(
-              width: double.infinity, 
-              child: ElevatedButton(
-                onPressed: () {},
-                child: Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Text(
-                    "Continue",
-                    style: TextStyle(color: _textColor),
+            margin: EdgeInsets.all(24),
+            child: TextButton(
+              onPressed: _buttonColor == Color(0xFFFF8787)
+                  ? () {
+                      Navigator.pop(
+                        context,
+                        _textController
+                      );
+                    }
+                  : null,
+              child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: Text(
+                  "Continue",
+                  style: TextStyle(
+                    color: _textColor,
                   ),
                 ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _buttonColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        30),
-                  ),
+              ),
+              style: TextButton.styleFrom(
+                backgroundColor: _buttonColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
                 ),
               ),
             ),
