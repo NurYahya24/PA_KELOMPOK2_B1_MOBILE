@@ -50,6 +50,7 @@ class _LoginState extends State<Login> {
                 SizedBox(height: 15),
                 TextFormField(
                   controller: _ctrlEmail,
+                  cursorColor: const Color.fromRGBO(224, 46, 129, 1),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Silakan Masukkan Email Anda';
@@ -57,13 +58,23 @@ class _LoginState extends State<Login> {
                     return null;
                   },
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Colors
+                              .grey), // Atur warna border saat tidak aktif
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: const Color.fromRGBO(224, 46, 129, 1),
+                      ), // Atur warna border saat focused
+                    ),
                     hintText: 'Email',
                   ),
                 ),
                 SizedBox(height: 10),
                 TextFormField(
                   controller: _ctrlPassword,
+                  cursorColor: const Color.fromRGBO(224, 46, 129, 1),
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -72,7 +83,16 @@ class _LoginState extends State<Login> {
                     return null;
                   },
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Colors
+                              .grey), // Atur warna border saat tidak aktif
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: const Color.fromRGBO(224, 46, 129, 1),
+                      ), // Atur warna border saat focused
+                    ),
                     hintText: 'Password',
                   ),
                 ),
