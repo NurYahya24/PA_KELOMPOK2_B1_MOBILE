@@ -41,7 +41,7 @@ class _RegisState extends State<Regis> {
               padding: const EdgeInsets.all(20),
               child: Container(
                 width: 400,
-                height: 450,
+                height: 490,
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: Colors.white,
