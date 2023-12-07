@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daily_jurnal/provider/theme.dart';
+import 'package:daily_jurnal/screens/Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -392,6 +393,11 @@ class _Profile_pageState extends State<Profile_page> {
               onPressed: () {
                 Navigator.of(context).popUntil((route) => route.isFirst);
                 FirebaseAuth.instance.signOut();
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => const Login(),
+                  ),
+                );
               },
               child: Text(
                 "Yes",
