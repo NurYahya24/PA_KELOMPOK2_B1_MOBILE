@@ -36,13 +36,18 @@ class _JournalPageState extends State<JournalPage> {
           content: Text(konten),
           actions: [
             TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text(
-                  "Cancel",
-                  style: GoogleFonts.quicksand(),
-                )),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                "Cancel",
+                style: GoogleFonts.quicksand(
+                  textStyle: TextStyle(
+                    color: const Color.fromRGBO(224, 46, 129, 1),
+                  ),
+                ),
+              ),
+            ),
             TextButton(
               onPressed: () {
                 deleteJurnal(idDoc);
@@ -50,7 +55,11 @@ class _JournalPageState extends State<JournalPage> {
               },
               child: Text(
                 "Yes",
-                style: GoogleFonts.quicksand(),
+                style: GoogleFonts.quicksand(
+                  textStyle: TextStyle(
+                    color: const Color.fromRGBO(224, 46, 129, 1),
+                  ),
+                ),
               ),
             ),
           ],
