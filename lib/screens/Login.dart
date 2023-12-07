@@ -52,16 +52,39 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
-            content: Text(
-              '$e',
-              style: GoogleFonts.quicksand(
-                textStyle: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.normal,
-                  color: Colors.black,
-                ),
-              ),
-            ),
+            content: '$e' == '[firebase_auth/invalid-login-credentials] Error'
+                ? Text(
+                    "Your email or password is wrong. Please try again",
+                    style: GoogleFonts.quicksand(
+                      textStyle: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black,
+                      ),
+                    ),
+                  )
+                : '$e' ==
+                        '[firebase_auth/invalid-email] The email address is badly formatted.'
+                    ? Text(
+                        "Your email format is incorrect. Please check it again",
+                        style: GoogleFonts.quicksand(
+                          textStyle: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black,
+                          ),
+                        ),
+                      )
+                    : Text(
+                        "$e",
+                        style: GoogleFonts.quicksand(
+                          textStyle: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
             actions: <Widget>[
               TextButton(
                 onPressed: () {

@@ -29,6 +29,21 @@ class _RegisState extends State<Regis> {
     setState(() => _loading = true);
     await Auth().regis(email, password, username);
     setState(() => _loading = false);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          "Your journal has been successfully added!",
+          style: GoogleFonts.quicksand(
+            textStyle: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.normal,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        backgroundColor: Color.fromRGBO(0, 230, 118, 1),
+      ),
+    );
   }
 
   @override
