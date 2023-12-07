@@ -32,7 +32,7 @@ class _RegisState extends State<Regis> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          "Your journal has been successfully added!",
+          "You have been successfully registered!",
           style: GoogleFonts.quicksand(
             textStyle: TextStyle(
               fontSize: 16,
