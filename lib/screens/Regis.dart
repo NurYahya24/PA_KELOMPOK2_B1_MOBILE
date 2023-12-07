@@ -129,6 +129,8 @@ class _RegisState extends State<Regis> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Fill your password';
+                        } else if (value.length < 6) {
+                          return 'Your password must be at least 6 characters';
                         }
                         return null;
                       },

@@ -128,20 +128,20 @@ class _section_pageState extends State<section_page> {
                       if (widget.action == "add") {
                         addSection(_textController.text);
                         ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            "Your section has been successfully added!",
-                            style: GoogleFonts.quicksand(
-                              textStyle: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
+                          SnackBar(
+                            content: Text(
+                              "Your section has been successfully added!",
+                              style: GoogleFonts.quicksand(
+                                textStyle: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
                               ),
                             ),
+                            backgroundColor: Color.fromRGBO(0, 230, 118, 1),
                           ),
-                          backgroundColor: Color.fromRGBO(0, 230, 118, 1),
-                        ),
-                      );
+                        );
                       }
                       Navigator.of(context).pop();
                     }
@@ -326,18 +326,24 @@ class _sectionViewState extends State<sectionView> {
                     default:
                       if (snapshot.data!.docs.isEmpty) {
                         return Center(
-                          child: Column(
-                            children: [
+                          child: Padding(padding: EdgeInsets.only(top: 160),
+                          child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
                               Text('No images yet'),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    showAlertDialog(context, 'Delete Folder',
-                                        'Are you sure?');
-                                  },
-                                  child: Text('Delete Folder')),
-                            ],
-                          ),
-                        );
+                              IconButton(
+                                icon: Icon(Icons.delete),
+                                tooltip: 'delete this folder',
+                                color: const Color.fromRGBO(224, 46, 129, 1),
+                                onPressed: () {
+                                  // Fungsi yang akan dijalankan ketika tombol ditekan
+                                  showAlertDialog(context, 'Delete Folder',
+                                      'Are you sure?');
+                                },
+                              ),
+                            ])
+                          ,));
                       } else {
                         if (snapshot.hasError) {
                           return Center(
