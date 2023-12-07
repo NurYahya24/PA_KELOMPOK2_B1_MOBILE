@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, prefer_final_fields
 
+import 'package:daily_jurnal/screens/home.dart';
+
 import 'Regis.dart';
 import 'package:flutter/material.dart';
 import '../provider/Auth.dart';
@@ -28,6 +30,11 @@ class _LoginState extends State<Login> {
     setState(() => _loading = true);
     try {
       await Auth().login(email, password);
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const Home(),
+        ),
+      );
       setState(() => _loading = false);
     } catch (e) {
       print('Error during login: $e');
@@ -63,6 +70,7 @@ class _LoginState extends State<Login> {
                       builder: (context) => const Login(),
                     ),
                   );
+                  setState(() => _loading = false);
                 },
                 child: Text(
                   'OK',
