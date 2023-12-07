@@ -26,8 +26,60 @@ class _LoginState extends State<Login> {
     final email = _ctrlEmail.value.text;
     final password = _ctrlPassword.value.text;
     setState(() => _loading = true);
-    await Auth().login(email, password);
-    setState(() => _loading = false);
+    try {
+      await Auth().login(email, password);
+      setState(() => _loading = false);
+    } catch (e) {
+      print('Error during login: $e');
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              'There is An Error',
+              style: GoogleFonts.quicksand(
+                textStyle: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: const Color.fromRGBO(224, 46, 129, 1),
+                ),
+              ),
+            ),
+            content: Text(
+              '$e',
+              style: GoogleFonts.quicksand(
+                textStyle: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => const Login(),
+                    ),
+                  );
+                },
+                child: Text(
+                  'OK',
+                  style: GoogleFonts.quicksand(
+                    textStyle: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: const Color.fromRGBO(224, 46, 129, 1),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   @override
