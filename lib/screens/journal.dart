@@ -470,10 +470,46 @@ class _CreateJournalPageState extends State<CreateJournalPage> {
               visible: isAnyTextFieldFilled,
               child: IconButton(
                   onPressed: () {
-                    widget.aksi == 'buat'
-                        ? addJurnal(_judul.text, _konten.text, index_warna)
-                        : editJurnal(
-                            _judul.text, _konten.text, index_warna, widget.id);
+                    // widget.aksi == 'buat'
+                    //     ? addJurnal(_judul.text, _konten.text, index_warna)
+                    //     : editJurnal(
+                    //         _judul.text, _konten.text, index_warna, widget.id);
+                    if (widget.aksi == 'buat') {
+                      addJurnal(_judul.text, _konten.text, index_warna);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            "Your journal has been successfully added!",
+                            style: GoogleFonts.quicksand(
+                              textStyle: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          backgroundColor: Color.fromRGBO(0, 230, 118, 1),
+                        ),
+                      );
+                    } else {
+                      editJurnal(
+                          _judul.text, _konten.text, index_warna, widget.id);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            "Your journal has been successfully updated!",
+                            style: GoogleFonts.quicksand(
+                              textStyle: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          backgroundColor: Color.fromRGBO(224, 46, 129, 1),
+                        ),
+                      );
+                    }
                     Navigator.of(context).pop();
                   },
                   icon: Icon(Icons.check))),

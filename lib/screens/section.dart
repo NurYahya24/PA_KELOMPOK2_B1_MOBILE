@@ -127,6 +127,21 @@ class _section_pageState extends State<section_page> {
                   ? () {
                       if (widget.action == "add") {
                         addSection(_textController.text);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            "Your section has been successfully added!",
+                            style: GoogleFonts.quicksand(
+                              textStyle: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          backgroundColor: Color.fromRGBO(0, 230, 118, 1),
+                        ),
+                      );
                       }
                       Navigator.of(context).pop();
                     }
