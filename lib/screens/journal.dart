@@ -15,6 +15,7 @@ List<Color> colors = [
   Color.fromRGBO(223, 159, 248, 1),
   Color.fromRGBO(163, 255, 247, 1),
   Color.fromRGBO(238, 179, 179, 1),
+  Color.fromRGBO(150, 142, 255, 1),
 ];
 
 class JournalPage extends StatefulWidget {
