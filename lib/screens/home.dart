@@ -376,13 +376,18 @@ class _Profile_pageState extends State<Profile_page> {
           content: Text(konten),
           actions: [
             TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text(
-                  "Cancel",
-                  style: GoogleFonts.quicksand(),
-                )),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                "Cancel",
+                style: GoogleFonts.quicksand(
+                  textStyle: TextStyle(
+                    color: Color.fromRGBO(224, 46, 129, 1),
+                  ),
+                ),
+              ),
+            ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).popUntil((route) => route.isFirst);
@@ -390,7 +395,11 @@ class _Profile_pageState extends State<Profile_page> {
               },
               child: Text(
                 "Yes",
-                style: GoogleFonts.quicksand(),
+                style: GoogleFonts.quicksand(
+                  textStyle: TextStyle(
+                    color: Color.fromRGBO(224, 46, 129, 1),
+                  ),
+                ),
               ),
             ),
           ],

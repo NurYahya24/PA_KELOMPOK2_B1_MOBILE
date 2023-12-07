@@ -65,10 +65,10 @@ class _RegisState extends State<Regis> {
                     ),
                     SizedBox(height: 2),
                     Text(
-                      "create your account",
+                      "Create your account",
                       style: GoogleFonts.quicksand(
                         textStyle: TextStyle(
-                          fontSize: 15, //dedfuewgd
+                          fontSize: 15,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -79,7 +79,7 @@ class _RegisState extends State<Regis> {
                       cursorColor: const Color.fromRGBO(224, 46, 129, 1),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Silakan Masukkan Email Anda';
+                          return 'Fill your email';
                         }
                         return null;
                       },
@@ -103,7 +103,7 @@ class _RegisState extends State<Regis> {
                       cursorColor: const Color.fromRGBO(224, 46, 129, 1),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Silakan Masukkan Username Anda';
+                          return 'Fill your username';
                         }
                         return null;
                       },
@@ -128,7 +128,7 @@ class _RegisState extends State<Regis> {
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Silakan Masukkan Password Anda';
+                          return 'Fill your password';
                         }
                         return null;
                       },
@@ -163,7 +163,7 @@ class _RegisState extends State<Regis> {
                       ),
                       child: _loading
                           ? const SizedBox(
-                              width: 100,
+                              width: 20,
                               height: 20,
                               child: CircularProgressIndicator(
                                 color: Colors.white,
@@ -184,7 +184,7 @@ class _RegisState extends State<Regis> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Already have account?',
+                          'Already have an account?',
                           style: GoogleFonts.quicksand(),
                         ),
                         TextButton(

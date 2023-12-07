@@ -99,6 +99,7 @@ class _section_pageState extends State<section_page> {
             margin: EdgeInsets.only(left: 24, right: 24),
             child: TextField(
               controller: _textController,
+              cursorColor: Color(0xFFFF8787),
               onChanged: _onTextFieldChanged,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),

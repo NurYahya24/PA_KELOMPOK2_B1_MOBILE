@@ -45,7 +45,7 @@ class _LoginState extends State<Login> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Welcome..",
+                    "Welcome",
                     style: GoogleFonts.quicksand(
                       textStyle: TextStyle(
                         color: const Color.fromRGBO(224, 46, 129, 1),
@@ -79,7 +79,7 @@ class _LoginState extends State<Login> {
                   cursorColor: const Color.fromRGBO(224, 46, 129, 1),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Silakan Masukkan Email Anda';
+                      return 'Fill your email';
                     }
                     return null;
                   },
@@ -104,15 +104,13 @@ class _LoginState extends State<Login> {
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Silakan Masukkan Password Anda';
+                      return 'Fill your password';
                     }
                     return null;
                   },
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Colors
-                              .grey), // Atur warna border saat tidak aktif
+                      borderSide: BorderSide(color: Colors.grey),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -139,7 +137,7 @@ class _LoginState extends State<Login> {
                   ),
                   child: _loading
                       ? const SizedBox(
-                          width: 100,
+                          width: 20,
                           height: 20,
                           child: CircularProgressIndicator(
                             color: Colors.white,
@@ -159,7 +157,7 @@ class _LoginState extends State<Login> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('You dont have account?'),
+                    Text("Don't have an account?"),
                     TextButton(
                       onPressed: () {
                         Navigator.push(

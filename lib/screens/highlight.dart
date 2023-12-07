@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'section.dart';
@@ -84,7 +85,8 @@ class _highlight_pageState extends State<highlight_page> {
                                         maxWidth: 200,
                                         maxHeight: 200,
                                       ),
-                                      child: Icon(Icons.menu_book, size: 45),
+                                      child: Icon(CupertinoIcons.photo_camera,
+                                          size: 45),
                                     ),
                                     title: Text(
                                       'No Highlight',
