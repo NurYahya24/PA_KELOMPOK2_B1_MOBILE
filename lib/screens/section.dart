@@ -245,6 +245,17 @@ class _sectionViewState extends State<sectionView> {
         .snapshots();
   }
 
+  void deleteFolder() {
+    var idUser = FirebaseAuth.instance.currentUser!.uid;
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    db
+        .collection('users')
+        .doc(idUser)
+        .collection('section')
+        .doc(widget.idSection)
+        .delete();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -300,7 +311,17 @@ class _sectionViewState extends State<sectionView> {
                     default:
                       if (snapshot.data!.docs.isEmpty) {
                         return Center(
-                          child: Text('No images yet'),
+                          child: Column(
+                            children: [
+                              Text('No images yet'),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    showAlertDialog(context, 'Delete Folder',
+                                        'Are you sure?');
+                                  },
+                                  child: Text('Delete Folder')),
+                            ],
+                          ),
                         );
                       } else {
                         if (snapshot.hasError) {
@@ -396,6 +417,40 @@ class _sectionViewState extends State<sectionView> {
           color: Colors.white,
         ),
       ),
+    );
+  }
+
+  Future<dynamic> showAlertDialog(
+      BuildContext context, String judul, String konten) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(judul),
+          content: Text(konten),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  "Cancel",
+                  style: GoogleFonts.quicksand(),
+                )),
+            TextButton(
+              onPressed: () {
+                deleteFolder();
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+              child: Text(
+                "Yes",
+                style: GoogleFonts.quicksand(),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

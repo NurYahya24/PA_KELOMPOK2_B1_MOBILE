@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,20 +24,6 @@ class _highlight_pageState extends State<highlight_page> {
         .orderBy('tanggal', descending: true)
         .snapshots();
   }
-
-  // void deleteFolder(String idSection) async {
-  //   var idUser = FirebaseAuth.instance.currentUser!.uid;
-  //   final folderRef =
-  //       FirebaseStorage.instance.ref().child("highlight/$idUser/$idSection");
-  //   FirebaseFirestore db = FirebaseFirestore.instance;
-  //   db
-  //       .collection('users')
-  //       .doc(idUser)
-  //       .collection('section')
-  //       .doc(idSection)
-  //       .delete();
-  //   await folderRef.delete();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +103,10 @@ class _highlight_pageState extends State<highlight_page> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(12),
-                                    color: Color.fromRGBO(216, 216, 216, 0.898),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? Color.fromRGBO(216, 216, 216, 0.898)
+                                        : Color.fromRGBO(68, 68, 83, 0.894),
                                   ),
                                   child: ListTile(
                                     contentPadding: EdgeInsets.symmetric(
@@ -133,18 +120,18 @@ class _highlight_pageState extends State<highlight_page> {
                                             color: const Color.fromARGB(
                                                 60, 0, 0, 0)),
                                       )),
-                                      child: IconButton(
-                                        icon: Icon(Icons.delete),
-                                        color: Color.fromARGB(153, 0, 0, 0),
-                                        onPressed: () {},
-                                      ),
+                                      child: Icon(Icons.image),
                                     ),
                                     title: Text(
                                       snapshot.data?.docs[index]['nama'],
                                       style: GoogleFonts.quicksand(
                                         textStyle: TextStyle(
-                                            color: const Color.fromARGB(
-                                                255, 0, 0, 0),
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.light
+                                                    ? const Color.fromARGB(
+                                                        255, 0, 0, 0)
+                                                    : Colors.white,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
@@ -157,8 +144,12 @@ class _highlight_pageState extends State<highlight_page> {
                                         formatTanggal,
                                         style: GoogleFonts.quicksand(
                                           textStyle: TextStyle(
-                                              color: const Color.fromARGB(
-                                                  255, 0, 0, 0)),
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.light
+                                                  ? const Color.fromARGB(
+                                                      255, 0, 0, 0)
+                                                  : Colors.white),
                                         ),
                                       ),
                                     )),
